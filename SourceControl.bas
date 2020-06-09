@@ -71,8 +71,32 @@ Public Sub ExportVisualBasicCode(control As IRibbonControl)
         End If
     Next
     
-    Application.StatusBar = "Successfully exported " & CStr(count) & " VBA files to " & directory
-    Application.OnTime Now + TimeSerial(0, 0, 10), "ClearStatusBar"
+    MsgBox "Successfully exported " & CStr(count) & " VBA files to " & directory
     End If
     
+End Sub
+
+Sub ImportVisualBasicCode()
+ 
+    Dim oFSO As Object
+    Dim oFolder As Object
+    Dim oFile As Object
+    Dim i As Integer
+    Dim directory As String
+     
+    Set oFSO = CreateObject("Scripting.FileSystemObject")
+     
+    Set oFolder = oFSO.GetFolder(ActiveWorkbook.path & "\VisualBasic")
+     
+    For Each oFile In oFolder.Files
+     
+        directory = ActiveWorkbook.path & "\VisualBasic\" & oFile.name
+        ActiveWorkbook.VBProject.VBComponents.Import directory
+        
+        If Err.Number <> 0 Then
+            Call MsgBox("Failed to import " & oFile.name, vbCritical)
+        End If
+     
+    Next oFile
+ 
 End Sub

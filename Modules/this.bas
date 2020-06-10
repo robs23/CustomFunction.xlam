@@ -26,6 +26,13 @@ End If
 End Sub
 
 
+Public Function DropLSU(orginalBatch As String) As Double
+Dim b As String
+b = Replace(orginalBatch, "LSU", "", 1, , vbTextCompare)
+DropLSU = CDbl(b)
+
+End Function
+
 Public Function conversionPossible(ind As Variant) As Variant
 Dim lastRow As Long
 Dim rng As Range

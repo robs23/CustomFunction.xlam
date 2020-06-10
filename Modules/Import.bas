@@ -1389,8 +1389,8 @@ With sht
                     boundery = counter / 1000
                     ReDim Preserve bStr(boundery) As String
                 End If
-                bStr(boundery) = bStr(boundery) & "(" & CDbl(sht.Cells(s, fCol).Value) & "),"
-                batchStr = batchStr + CStr(CDbl(sht.Cells(s, fCol).Value)) + ","
+                bStr(boundery) = bStr(boundery) & "(" & DropLSU(sht.Cells(s, fCol).Value) & "),"
+                batchStr = batchStr + CStr(DropLSU(sht.Cells(s, fCol).Value)) + ","
                 counter = counter + 1
             End If
         Next s
@@ -1426,7 +1426,7 @@ With sht
                     ReDim Preserve rStr(boundery) As String
                 End If
                 combId = batches(CStr(CDbl(sht.Cells(s, fCol)))).bId & "_" & orders(CStr(sht.Cells(s, tCol))).orderId & "_" & sht.Cells(s, bCol)
-                rStr(boundery) = rStr(boundery) & "('" & sht.Cells(s, dCol).Value & "'," & batches(CStr(CDbl(sht.Cells(s, fCol)))).bId & "," & orders(CStr(sht.Cells(s, tCol))).orderId & "," & -1 * Replace(sht.Cells(s, aCol), ",", ".") & ",'" & combId & "'),"
+                rStr(boundery) = rStr(boundery) & "('" & sht.Cells(s, dCol).Value & "'," & batches(CStr(DropLSU(sht.Cells(s, fCol)))).bId & "," & orders(CStr(sht.Cells(s, tCol))).orderId & "," & -1 * Replace(sht.Cells(s, aCol), ",", ".") & ",'" & combId & "'),"
                 counter = counter + 1
             End If
         Next s
@@ -2470,45 +2470,6 @@ If found Then
     downloadZfins "'zfin','zfor'"
     
     '----------------------------------------------------------------------------------------------
-    '--------------- Let's add missing batches -------------------------------------
-    counter = 0
-    For i = 1 To 30000
-        If Len(sht.Cells(i, bCol).Value) > 0 And (sht.Cells(i, uCol).Value = "PC" Or sht.Cells(i, uCol).Value = "KG") Then
-            If counter = 0 Then
-                boundery = 0
-                ReDim batchStr(0) As String
-            ElseIf counter Mod 1000 = 0 Then
-                'we've hit maximum of 1000 elements per single upload. Let's create another string and put the rest there
-                boundery = counter / 1000
-                ReDim Preserve batchStr(boundery) As String
-            End If
-            batchStr(boundery) = batchStr(boundery) & "(" & CDbl(sht.Cells(i, bCol).Value) & "," & zfins(CStr(sht.Cells(i, pCol).Value)).zfinId & "),"
-            bStr = bStr & CDbl(sht.Cells(i, bCol).Value) & ","
-            counter = counter + 1
-        ElseIf sht.Cells(i, oCol).Value = "" And sht.Cells(i, pCol).Value = "" Then
-            bStr = Left(bStr, Len(bStr) - 1)
-            For counter = LBound(batchStr) To UBound(batchStr)
-                batchStr(counter) = Left(batchStr(counter), Len(batchStr(counter)) - 1)
-            Next counter
-            Exit For
-        End If
-    Next i
-    
-    cSql = "CREATE TABLE #batches(batchNumber bigint,zfinId int)"
-    AdoConn.Execute cSql
-    For counter = LBound(batchStr) To UBound(batchStr)
-        iSql = "INSERT INTO #batches(batchNumber,zfinId) VALUES " & batchStr(counter)
-        AdoConn.Execute iSql
-    Next counter
-    uSql = "UPDATE t1 SET t1.zfinId = t2.zfinId FROM tbBatch t1 INNER JOIN #batches t2 ON t1.batchNumber = t2.batchNumber"
-    AdoConn.Execute uSql
-    sSql = "SELECT DISTINCT batchNumber,zfinId FROM #batches WHERE batchNumber NOT IN (SELECT batchNumber FROM tbBatch)"
-    iSql = "INSERT INTO tbBatch (batchNumber,zfinId) " & sSql
-    AdoConn.Execute iSql
-    
-    downloadBatches bStr
-    
-    '----------------------------------------------------------------------------------------------
     '--------------- Let's add missing operations -------------------------------------
     counter = 0
     For i = 1 To 30000
@@ -2527,7 +2488,7 @@ If found Then
                 boundery = counter / 1000
                 ReDim Preserve operStr(boundery) As String
             End If
-            operStr(boundery) = operStr(boundery) & "(" & sht.Cells(i, oCol).Value & ",'" & theType & "'," & batches(CStr(CDbl(sht.Cells(i, bCol).Value))).bId & "," & zfins(CStr(sht.Cells(i, pCol).Value)).zfinId & "," & Replace(CDbl(sht.Cells(i, aCol).Value), ",", ".") & "),"
+            operStr(boundery) = operStr(boundery) & "(" & sht.Cells(i, oCol).Value & ",'" & theType & "'," & zfins(CStr(sht.Cells(i, pCol).Value)).zfinId & "," & Replace(CDbl(sht.Cells(i, aCol).Value), ",", ".") & "),"
             counter = counter + 1
         ElseIf sht.Cells(i, oCol).Value = "" And sht.Cells(i, pCol).Value = "" Then
             For counter = LBound(operStr) To UBound(operStr)
@@ -2537,16 +2498,16 @@ If found Then
         End If
     Next i
     
-    cSql = "CREATE TABLE #orders(sapId bigint,type nchar(1),batchId bigint, zfinId bigint, executedSap float)"
+    cSql = "CREATE TABLE #orders(sapId bigint,type nchar(1), zfinId bigint, executedSap float)"
     AdoConn.Execute cSql
     For counter = LBound(operStr) To UBound(operStr)
-        iSql = "INSERT INTO #orders(sapId,type,batchId,zfinId,executedSap) VALUES " & operStr(counter)
+        iSql = "INSERT INTO #orders(sapId,type,zfinId,executedSap) VALUES " & operStr(counter)
         AdoConn.Execute iSql
     Next counter
-    uSql = "UPDATE t1 SET t1.batchId = t2.batchId, t1.zfinId = t2.zfinId, t1.executedSap = t2.executedSap FROM tbOrders t1 INNER JOIN #orders t2 ON t1.sapId = t2.sapId"
+    uSql = "UPDATE t1 SET t1.zfinId = t2.zfinId, t1.executedSap = t2.executedSap FROM tbOrders t1 INNER JOIN #orders t2 ON t1.sapId = t2.sapId"
     AdoConn.Execute uSql
-    sSql = "SELECT DISTINCT sapId,type,batchId,zfinId,GETDATE() as createdOn,executedSap FROM #orders WHERE sapId NOT IN (SELECT sapId FROM tbOrders WHERE sapId IS NOT NULL)"
-    iSql = "INSERT INTO tbOrders (sapId,type,batchId,zfinId,createdOn,executedSap) " & sSql
+    sSql = "SELECT DISTINCT sapId,type,zfinId,GETDATE() as createdOn,executedSap FROM #orders WHERE sapId NOT IN (SELECT sapId FROM tbOrders WHERE sapId IS NOT NULL)"
+    iSql = "INSERT INTO tbOrders (sapId,type,zfinId,createdOn,executedSap) " & sSql
     AdoConn.Execute iSql
     
 Else
@@ -3430,14 +3391,10 @@ If Not c3 Is Nothing Then
                             If c.Offset(0, 1) <> "" Then
                                 If counter = 0 Then
                                     boundery = 0
-                                    ReDim batchStr(0) As String
                                 ElseIf counter Mod 1000 = 0 Then
                                     'we've hit maximum of 1000 elements per single upload. Let's create another string and put the rest there
                                     boundery = counter / 1000
-                                    ReDim Preserve batchStr(boundery) As String
                                 End If
-                                bStr = bStr & CDbl(Right(c.Offset(0, 1), 10)) & ","
-                                batchStr(boundery) = batchStr(boundery) & "(" & CDbl(Right(c.Offset(0, 1), 10)) & "," & zfins(CStr(currZfin)).zfinId & "),"
                                 If c.Offset(0, -6) <> "" Then
                                     If c.Offset(0, -3) = "" Then
                                         deliv = 0
@@ -3477,14 +3434,10 @@ If Not c3 Is Nothing Then
                     If c.Offset(0, 1) <> "" Then
                         If counter = 0 Then
                             boundery = 0
-                            ReDim batchStr(0) As String
                         ElseIf counter Mod 1000 = 0 Then
                             'we've hit maximum of 1000 elements per single upload. Let's create another string and put the rest there
                             boundery = counter / 1000
-                            ReDim Preserve batchStr(boundery) As String
                         End If
-                        bStr = bStr & CDbl(Right(c.Offset(0, 1), 10)) & ","
-                        batchStr(boundery) = batchStr(boundery) & "(" & CDbl(Right(c.Offset(0, 1), 10)) & "," & zfins(CStr(currZfin)).zfinId & "),"
                         If c.Offset(0, -6) <> "" Then
                             If c.Offset(0, -3) = "" Then
                                 deliv = 0
@@ -3507,28 +3460,10 @@ If Not c3 Is Nothing Then
             Next c
         End If
         
-        bStr = Left(bStr, Len(bStr) - 1)
-        For counter = LBound(batchStr) To UBound(batchStr)
-            batchStr(counter) = Left(batchStr(counter), Len(batchStr(counter)) - 1)
-        Next counter
         For counter = LBound(qDocString) To UBound(qDocString)
             qDocString(counter) = Left(qDocString(counter), Len(qDocString(counter)) - 1)
         Next counter
         
-        
-        cSql = "CREATE TABLE #batches(batchNumber bigint, zfinId int)"
-        AdoConn.Execute cSql
-        For counter = LBound(batchStr) To UBound(batchStr)
-            iSql = "INSERT INTO #batches(batchNumber,zfinId) VALUES " & batchStr(counter)
-            AdoConn.Execute iSql
-        Next counter
-        uSql = "UPDATE t1 SET t1.zfinId = t2.zfinId FROM tbBatch t1 INNER JOIN #batches t2 ON t1.batchNumber = t2.batchNumber"
-        AdoConn.Execute uSql
-        sSql = "SELECT DISTINCT batchNumber,zfinId FROM #batches WHERE batchNumber NOT IN (SELECT batchNumber FROM tbBatch)"
-        iSql = "INSERT INTO tbBatch (batchNumber,zfinId) " & sSql
-        AdoConn.Execute iSql
-        
-        downloadBatches bStr
         
         cSql = "CREATE TABLE #qDocs(qDate datetime, qNumber nchar(9),delNumber bigint, qType nchar(6))"
         AdoConn.Execute cSql

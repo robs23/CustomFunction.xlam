@@ -1,4 +1,4 @@
-VERSION 1.0 CLASS
+ï»¿VERSION 1.0 CLASS
 BEGIN
   MultiUse = -1  'True
 END
@@ -100,7 +100,7 @@ closeConnection
 Exit Sub
 
 err_trap:
-MsgBox "B³¹d w clsShipment.SaveToDb. " & Err.Description
+MsgBox "BÅ‚Ä…d w clsShipment.SaveToDb. " & Err.Description
 Resume Exit_here
 
 End Sub

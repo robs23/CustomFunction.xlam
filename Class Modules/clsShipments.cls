@@ -1,4 +1,4 @@
-VERSION 1.0 CLASS
+ï»¿VERSION 1.0 CLASS
 BEGIN
   MultiUse = -1  'True
 END
@@ -283,7 +283,7 @@ For i = 1 To 100
                             If amount > 0 Then
                                 LPlant = sht.Range("G" & y)
                                 If LPlant = "0" Then
-                                    MsgBox "Brak lokacji dla produktu " & index & ". Uzupe³nij dane. Nic nie zosta³o zaimportowane!", vbCritical + vbOKOnly, "Brak danych"
+                                    MsgBox "Brak lokacji dla produktu " & index & ". UzupeÅ‚nij dane. Nic nie zostaÅ‚o zaimportowane!", vbCritical + vbOKOnly, "Brak danych"
                                     isError = True 'set the flag
                                     Exit For
                                 End If
@@ -330,13 +330,13 @@ eTime = Now
 Exit_here:
 If isError Then res = False
 If res = False Then
-    MsgBox "B³¹d w clsShipments.Scan. Kolumna " & col2Letter(ship.Column) & ", wierz " & y & ". " & Err.Description
+    MsgBox "BÅ‚Ä…d w clsShipments.Scan. Kolumna " & col2Letter(ship.Column) & ", wierz " & y & ". " & Err.Description
 End If
 Scan = res
 Exit Function
 
 err_trap:
-MsgBox "B³¹d w clsShipments.Scan. Kolumna " & col2Letter(ship.Column) & ", wierz " & y & ". " & Err.Description
+MsgBox "BÅ‚Ä…d w clsShipments.Scan. Kolumna " & col2Letter(ship.Column) & ", wierz " & y & ". " & Err.Description
 Resume Exit_here
 End Function
 
@@ -422,7 +422,7 @@ If IsDate(initialDate) Then
         Next y
     Next x
 Else
-    MsgBox "Nie uda³o siê ustawiæ daty pocz¹tkowej na podstawie nazwy pliku. Upewnij siê, ¿e nazwa pliku koñczy siê formatem ww_yyyy np. 52_2019.xlsx", vbCritical + vbOKOnly, "Z³a nazwa pliku"
+    MsgBox "Nie udaÅ‚o siÄ™ ustawiÄ‡ daty poczÄ…tkowej na podstawie nazwy pliku. Upewnij siÄ™, Å¼e nazwa pliku koÅ„czy siÄ™ formatem ww_yyyy np. 52_2019.xlsx", vbCritical + vbOKOnly, "ZÅ‚a nazwa pliku"
     res = False
 End If
 
@@ -432,7 +432,7 @@ Exit Function
 
 err_trap:
 res = False
-MsgBox "B³¹d w clsShipments.GetStocks. Kolumna " & col2Letter(8 + (x * 46)) & ", wiersz " & y & Err.Description
+MsgBox "BÅ‚Ä…d w clsShipments.GetStocks. Kolumna " & col2Letter(8 + (x * 46)) & ", wiersz " & y & Err.Description
 Resume Exit_here
 
 End Function
@@ -479,7 +479,7 @@ If IsDate(initialDate) Then
         Next y
     Next x
 Else
-    MsgBox "Nie uda³o siê ustawiæ daty pocz¹tkowej na podstawie nazwy pliku. Upewnij siê, ¿e nazwa pliku koñczy siê formatem ww_yyyy np. 52_2019.xlsx", vbCritical + vbOKOnly, "Z³a nazwa pliku"
+    MsgBox "Nie udaÅ‚o siÄ™ ustawiÄ‡ daty poczÄ…tkowej na podstawie nazwy pliku. Upewnij siÄ™, Å¼e nazwa pliku koÅ„czy siÄ™ formatem ww_yyyy np. 52_2019.xlsx", vbCritical + vbOKOnly, "ZÅ‚a nazwa pliku"
     res = False
 End If
 
@@ -489,7 +489,7 @@ Exit Function
 
 err_trap:
 res = False
-MsgBox "B³¹d w clsShipments.GetProductions. Kolumna " & col2Letter(11 + (x * 46)) & ", wiersz " & y & Err.Description
+MsgBox "BÅ‚Ä…d w clsShipments.GetProductions. Kolumna " & col2Letter(11 + (x * 46)) & ", wiersz " & y & Err.Description
 Resume Exit_here
 
 End Function
@@ -517,7 +517,7 @@ End If
 
 
 If IsNull(ConvertDate) Then
-    MsgBox "Nie uda³o siê przekonwertowaæ daty " & theDate & ". Upewnij siê ¿e data jest w formacie dd.mm.yyyy np. 31.12.2020"
+    MsgBox "Nie udaÅ‚o siÄ™ przekonwertowaÄ‡ daty " & theDate & ". Upewnij siÄ™ Å¼e data jest w formacie dd.mm.yyyy np. 31.12.2020"
 End If
 
 Exit_here:
@@ -525,7 +525,7 @@ Exit Function
 
 err_trap:
 ConvertDate = Null
-MsgBox "Nie uda³o siê przekonwertowaæ daty " & theDate & ". Upewnij siê ¿e data jest w formacie dd.mm.yyyy np. 31.12.2020"
+MsgBox "Nie udaÅ‚o siÄ™ przekonwertowaÄ‡ daty " & theDate & ". Upewnij siÄ™ Å¼e data jest w formacie dd.mm.yyyy np. 31.12.2020"
 Resume Exit_here
 
 End Function

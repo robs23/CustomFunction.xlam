@@ -1,4 +1,4 @@
-Attribute VB_Name = "SourceControl"
+ÔªøAttribute VB_Name = "SourceControl"
 ' Excel macro to export all VBA source code in this project to text files for proper source control versioning
 ' Requires enabling the Excel setting in Options/Trust Center/Trust Center Settings/Macro Settings/Trust access to the VBA project object model
 Public Sub ExportVisualBasicCode(control As IRibbonControl)
@@ -22,7 +22,7 @@ Public Sub ExportVisualBasicCode(control As IRibbonControl)
     
     
     If ActiveWorkbook Is Nothing Then
-        res = MsgBox("Czy chcia≥byú eksportowaÊ kod z tej wtyczki", vbQuestion + vbYesNo, "Potwierdü eksport wtyczki")
+        res = MsgBox("Czy chcia≈Çby≈õ eksportowaƒá kod z tej wtyczki", vbQuestion + vbYesNo, "Potwierd≈∫ eksport wtyczki")
         If res = vbYes Then
             go = True
             Set wb = ThisWorkbook
@@ -74,6 +74,7 @@ Public Sub ExportVisualBasicCode(control As IRibbonControl)
             
             
             Call VBComponent.Export(path)
+            SaveAsUtf8 path
             
             If Err.Number <> 0 Then
                 Call MsgBox("Failed to export " & VBComponent.name & " to " & path, vbCritical)
@@ -116,4 +117,24 @@ Sub ImportVisualBasicCode()
      
     Next oFile
  
+End Sub
+
+Sub SaveAsUtf8(path As String)
+Dim fso As New FileSystemObject
+Dim file As Object
+Dim nFile As Object
+Dim content As String
+
+Set file = fso.OpenTextFile(path, ForReading)
+content = file.ReadAll
+file.Close
+fso.DeleteFile path, True
+
+Set nFile = CreateObject("ADODB.Stream")
+nFile.Type = 2 'Specify stream type - we want To save text/string data.
+nFile.Charset = "utf-8" 'Specify charset For the source text data.
+nFile.Open 'Open the stream And write binary data To the object
+nFile.WriteText content
+nFile.SaveToFile path, 2 'Save binary data To disk
+
 End Sub

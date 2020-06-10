@@ -1,4 +1,4 @@
-VERSION 5.00
+ï»¿VERSION 5.00
 Begin {C62A69F0-16DC-11CE-9E98-00AA00574A4F} impForm 
    Caption         =   "Wybierz typ raportu"
    ClientHeight    =   1485
@@ -22,19 +22,19 @@ Private Sub btnOK_Click()
 If Me.cmbReport.Value = "Grafik produkcyjny" Then
     Me.Hide
     saveProductionPlan
-ElseIf Me.cmbReport.Value = "Lista przypisañ atrybutów do artyku³ów" Then
+ElseIf Me.cmbReport.Value = "Lista przypisaÅ„ atrybutÃ³w do artykuÅ‚Ã³w" Then
     Me.Hide
     updateProperty
-ElseIf Me.cmbReport.Value = "Zestawienie obrotów wg artyku³ów" Then
+ElseIf Me.cmbReport.Value = "Zestawienie obrotÃ³w wg artykuÅ‚Ã³w" Then
     Me.Hide
     exportPW_WZ
-ElseIf Me.cmbReport.Value = "Powi¹zania operacji" Then
+ElseIf Me.cmbReport.Value = "PowiÄ…zania operacji" Then
     Me.Hide
     importConnections
 ElseIf Me.cmbReport.Value = "COOIS" Then
     Me.Hide
     importBatch2order
-ElseIf Me.cmbReport.Value = "Zestawienie iloœci wyprodukowanej w zleceniu" Then
+ElseIf Me.cmbReport.Value = "Zestawienie iloÅ›ci wyprodukowanej w zleceniu" Then
     Me.Hide
     importMesQuantities
 ElseIf Me.cmbReport.Value = "Requirements View" Then
@@ -52,12 +52,12 @@ ElseIf Me.cmbReport.Value = "Costing data (ZCOMM_HU)" Then
     importCosting
 ElseIf Me.cmbReport.Value = "INET's OrderList" Then
     'importInetsOrderList
-ElseIf Me.cmbReport.Value = "Zlecenia z parti¹ dosypan¹" Then
+ElseIf Me.cmbReport.Value = "Zlecenia z partiÄ… dosypanÄ…" Then
     importRework
 ElseIf Me.cmbReport.Value = "Ruchy powrotne z magazynu (MB51)" Then
     importMb51
 Else
-    MsgBox "Najpierw wybierz jedn¹ z pozycji na liœcie", vbOKOnly + vbInformation, "B³¹d"
+    MsgBox "Najpierw wybierz jednÄ… z pozycji na liÅ›cie", vbOKOnly + vbInformation, "BÅ‚Ä…d"
 End If
 End Sub
 
@@ -77,18 +77,18 @@ With Me.cmbReport
         .RemoveItem i
     Next i
     .AddItem "Grafik produkcyjny"
-    .AddItem "Lista przypisañ atrybutów do artyku³ów"
-    .AddItem "Zestawienie obrotów wg artyku³ów"
-    .AddItem "Powi¹zania operacji"
+    .AddItem "Lista przypisaÅ„ atrybutÃ³w do artykuÅ‚Ã³w"
+    .AddItem "Zestawienie obrotÃ³w wg artykuÅ‚Ã³w"
+    .AddItem "PowiÄ…zania operacji"
     .AddItem "COOIS"
-    .AddItem "Zestawienie iloœci wyprodukowanej w zleceniu"
+    .AddItem "Zestawienie iloÅ›ci wyprodukowanej w zleceniu"
     .AddItem "Requirements View"
     .AddItem "BOM overview"
     .AddItem "Component scrap"
     .AddItem "Production order variance"
     .AddItem "Costing data (ZCOMM_HU)"
     .AddItem "INET's OrderList"
-    .AddItem "Zlecenia z parti¹ dosypan¹"
+    .AddItem "Zlecenia z partiÄ… dosypanÄ…"
     .AddItem "Ruchy powrotne z magazynu (MB51)"
     Me.btnOK.Enabled = False
 End With

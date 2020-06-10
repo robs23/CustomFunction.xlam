@@ -1,4 +1,4 @@
-Attribute VB_Name = "Import"
+ï»¿Attribute VB_Name = "Import"
 Option Explicit
 Public AdoConn As ADODB.Connection
 Public machs As New Collection
@@ -30,32 +30,32 @@ For y = 1 To 30
         str = sht.Cells(y, x)
         Select Case str
             Case Is = "GRID_PROD_GRAPH"
-                res = MsgBox("Próbujesz zaimportowaæ plan produkcyjny do bazy. Kontynuujemy?", vbQuestion + vbYesNo, "PotwierdŸ raport")
+                res = MsgBox("PrÃ³bujesz zaimportowaÄ‡ plan produkcyjny do bazy. Kontynuujemy?", vbQuestion + vbYesNo, "PotwierdÅº raport")
                 If res = vbYes Then saveProductionPlan
                 found = True
                 Exit For
-            Case Is = "Lista przypisañ atrybutów do artyku³ów"
-                res = MsgBox("Próbujesz zaimportowaæ atrybuty ZFINów/ZFORów do bazy. Kontynuujemy?", vbQuestion + vbYesNo, "PotwierdŸ raport")
+            Case Is = "Lista przypisaÅ„ atrybutÃ³w do artykuÅ‚Ã³w"
+                res = MsgBox("PrÃ³bujesz zaimportowaÄ‡ atrybuty ZFINÃ³w/ZFORÃ³w do bazy. Kontynuujemy?", vbQuestion + vbYesNo, "PotwierdÅº raport")
                 If res = vbYes Then updateProperty
                 found = True
                 Exit For
-            Case Is = "Zestawienie obrotów wg artyku³ów "
-                res = MsgBox("Próbujesz zaimportowaæ operacje PW/WZ do bazy. Kontynuujemy?", vbQuestion + vbYesNo, "PotwierdŸ raport")
+            Case Is = "Zestawienie obrotÃ³w wg artykuÅ‚Ã³w "
+                res = MsgBox("PrÃ³bujesz zaimportowaÄ‡ operacje PW/WZ do bazy. Kontynuujemy?", vbQuestion + vbYesNo, "PotwierdÅº raport")
                 If res = vbYes Then exportPW_WZ
                 found = True
                 Exit For
-            Case Is = "Powi¹zania operacji"
-                res = MsgBox("Próbujesz zaimportowaæ powi¹zania operacji do bazy. Kontynuujemy?", vbQuestion + vbYesNo, "PotwierdŸ raport")
+            Case Is = "PowiÄ…zania operacji"
+                res = MsgBox("PrÃ³bujesz zaimportowaÄ‡ powiÄ…zania operacji do bazy. Kontynuujemy?", vbQuestion + vbYesNo, "PotwierdÅº raport")
                 If res = vbYes Then importConnections
                 found = True
                 Exit For
-            Case Is = "Zestawienie iloœci wyprodukowanej w zleceniu"
-                res = MsgBox("Próbujesz zaimportowaæ iloœci wyprodukowane w zleceniu do bazy. Kontynuujemy?", vbQuestion + vbYesNo, "PotwierdŸ raport")
+            Case Is = "Zestawienie iloÅ›ci wyprodukowanej w zleceniu"
+                res = MsgBox("PrÃ³bujesz zaimportowaÄ‡ iloÅ›ci wyprodukowane w zleceniu do bazy. Kontynuujemy?", vbQuestion + vbYesNo, "PotwierdÅº raport")
                 If res = vbYes Then importMesQuantities
                 found = True
                 Exit For
-            Case Is = "Zlecenia z parti¹ dosypan¹"
-                res = MsgBox("Próbujesz zaimportowaæ zlecenia z parti¹ dosypan¹. Kontynuujemy?", vbQuestion + vbYesNo, "PotwierdŸ raport")
+            Case Is = "Zlecenia z partiÄ… dosypanÄ…"
+                res = MsgBox("PrÃ³bujesz zaimportowaÄ‡ zlecenia z partiÄ… dosypanÄ…. Kontynuujemy?", vbQuestion + vbYesNo, "PotwierdÅº raport")
                 If res = vbYes Then importRework
                 found = True
                 Exit For
@@ -65,12 +65,12 @@ For y = 1 To 30
 Next y
 
 If Not found Then
-    mStr = "Nie uda³o siê ustaliæ typu raportu do zaimportowania, prawdopodobnie nie jest on obs³ugiwany."
-    mStr = mStr & vbNewLine & "Obs³ugiwane raporty:" & vbNewLine
-    mStr = mStr & "-""Grafik produkcyjny"" z MES," & vbNewLine & "-""Lista przypisañ atrybutów do artyku³ów"" z MES," & vbNewLine & "-""Zestawienie obrotów wg artyku³ów"" z Qguar," & vbNewLine & "-""COOIS"" z SAP R/3 (rêcznie)." & vbNewLine & "-""Zestawienie iloœci wyprodukowanej w zleceniu"" z MES" & vbNewLine
-    mStr = mStr & "¯adne dane nie zosta³y dodane do bazy." & vbNewLine & vbNewLine
-    mStr = mStr & "Czy chcesz rêcznie wybraæ w³aœciwy typ raportu?"
-    res = MsgBox(mStr, vbYesNo + vbCritical, "B³êdny typ raportu")
+    mStr = "Nie udaÅ‚o siÄ™ ustaliÄ‡ typu raportu do zaimportowania, prawdopodobnie nie jest on obsÅ‚ugiwany."
+    mStr = mStr & vbNewLine & "ObsÅ‚ugiwane raporty:" & vbNewLine
+    mStr = mStr & "-""Grafik produkcyjny"" z MES," & vbNewLine & "-""Lista przypisaÅ„ atrybutÃ³w do artykuÅ‚Ã³w"" z MES," & vbNewLine & "-""Zestawienie obrotÃ³w wg artykuÅ‚Ã³w"" z Qguar," & vbNewLine & "-""COOIS"" z SAP R/3 (rÄ™cznie)." & vbNewLine & "-""Zestawienie iloÅ›ci wyprodukowanej w zleceniu"" z MES" & vbNewLine
+    mStr = mStr & "Å»adne dane nie zostaÅ‚y dodane do bazy." & vbNewLine & vbNewLine
+    mStr = mStr & "Czy chcesz rÄ™cznie wybraÄ‡ wÅ‚aÅ›ciwy typ raportu?"
+    res = MsgBox(mStr, vbYesNo + vbCritical, "BÅ‚Ä™dny typ raportu")
     If res = vbYes Then
         impForm.Show
     End If
@@ -129,7 +129,7 @@ With sht
                     zfinCol = n
                     Case Is = "Nazwa produktu"
                     zfinNameCol = n
-                    Case Is = "Iloœæ"
+                    Case Is = "IloÅ›Ä‡"
                     amountCol = n
                     Case Is = "Nr operacji"
                     typeCol = n
@@ -139,7 +139,7 @@ With sht
     Next i
     If found = False Then
         error = True
-        MsgBox "Struktura raportu wydaje siê zmieniona. Prawid³owy typ raportu to raport ""Zestawienie iloœci wyprodukowanej w zleceniu"" z MES. ¯adne dane nie zosta³y dodane do bazy.", vbOKOnly + vbCritical, "B³êdna struktura raportu"
+        MsgBox "Struktura raportu wydaje siÄ™ zmieniona. PrawidÅ‚owy typ raportu to raport ""Zestawienie iloÅ›ci wyprodukowanej w zleceniu"" z MES. Å»adne dane nie zostaÅ‚y dodane do bazy.", vbOKOnly + vbCritical, "BÅ‚Ä™dna struktura raportu"
     Else
         updateConnection
         lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).Row
@@ -266,7 +266,7 @@ End With
 Exit_here:
 closeConnection
 eTime = Now
-If Not error Then MsgBox "Zapis zakoñczony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
+If Not error Then MsgBox "Zapis zakoÅ„czony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
 Exit Sub
 
 err_trap:
@@ -409,7 +409,7 @@ With sht
     Next i
     If found = False Then
         error = True
-        MsgBox "Struktura raportu wydaje siê zmieniona. Prawid³owy typ raportu to raport ""Grafik produkcyjny"" z MES. ¯adne dane nie zosta³y dodane do bazy.", vbOKOnly + vbCritical, "B³êdna struktura raportu"
+        MsgBox "Struktura raportu wydaje siÄ™ zmieniona. PrawidÅ‚owy typ raportu to raport ""Grafik produkcyjny"" z MES. Å»adne dane nie zostaÅ‚y dodane do bazy.", vbOKOnly + vbCritical, "BÅ‚Ä™dna struktura raportu"
     Else
         'we identified all columns needed. Let's crack on
         lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).Row
@@ -444,7 +444,7 @@ With sht
         Next s
         
         For s = d To 50000
-            If sht.Cells(s, tCol).Value = "Pra¿enie" Or sht.Cells(s, tCol).Value = "Mielenie" Then
+            If sht.Cells(s, tCol).Value = "PraÅ¼enie" Or sht.Cells(s, tCol).Value = "Mielenie" Then
                 If counter = 0 Then
                     boundery = 0
                     ReDim zfinStr(0) As String
@@ -518,8 +518,8 @@ With sht
         counter = 0
         
         For s = d To 50000
-            If sht.Cells(s, tCol).Value = "Pakowanie" Or sht.Cells(s, tCol).Value = "Pra¿enie" Or sht.Cells(s, tCol).Value = "Mielenie" Then
-                If sht.Cells(s, tCol).Value = "Pra¿enie" Then
+            If sht.Cells(s, tCol).Value = "Pakowanie" Or sht.Cells(s, tCol).Value = "PraÅ¼enie" Or sht.Cells(s, tCol).Value = "Mielenie" Then
+                If sht.Cells(s, tCol).Value = "PraÅ¼enie" Then
                     theType = "r"
                 ElseIf sht.Cells(s, tCol).Value = "Pakowanie" Then
                     theType = "p"
@@ -562,8 +562,8 @@ With sht
 
         counter = 0
         For s = d To 50000
-            If sht.Cells(s, tCol).Value = "Pakowanie" Or sht.Cells(s, tCol).Value = "Pra¿enie" Or sht.Cells(s, tCol).Value = "Mielenie" Then
-                If sht.Cells(s, tCol).Value = "Pra¿enie" Then
+            If sht.Cells(s, tCol).Value = "Pakowanie" Or sht.Cells(s, tCol).Value = "PraÅ¼enie" Or sht.Cells(s, tCol).Value = "Mielenie" Then
+                If sht.Cells(s, tCol).Value = "PraÅ¼enie" Then
                     theType = "r"
                 ElseIf sht.Cells(s, tCol).Value = "Pakowanie" Then
                     theType = "p"
@@ -607,8 +607,8 @@ With sht
         
         counter = 0
         For s = d To 50000
-            If sht.Cells(s, tCol).Value = "Pakowanie" Or sht.Cells(s, tCol).Value = "Pra¿enie" Then
-                If sht.Cells(s, tCol).Value = "Pra¿enie" Then
+            If sht.Cells(s, tCol).Value = "Pakowanie" Or sht.Cells(s, tCol).Value = "PraÅ¼enie" Then
+                If sht.Cells(s, tCol).Value = "PraÅ¼enie" Then
                     theType = "r"
                 ElseIf sht.Cells(s, tCol).Value = "Pakowanie" Then
                     theType = "p"
@@ -648,7 +648,7 @@ With sht
         
         counter = 0
         For s = d To 50000
-            If sht.Cells(s, tCol).Value = "Pakowanie" Or sht.Cells(s, tCol).Value = "Pra¿enie" Or sht.Cells(s, tCol).Value = "Mielenie" Then
+            If sht.Cells(s, tCol).Value = "Pakowanie" Or sht.Cells(s, tCol).Value = "PraÅ¼enie" Or sht.Cells(s, tCol).Value = "Mielenie" Then
                 If counter = 0 Then
                     boundery = 0
                     ReDim operData(0) As String
@@ -689,7 +689,7 @@ If Not rs Is Nothing Then
     Set rs = Nothing
 End If
 eTime = Now
-If Not error Then MsgBox "Zapis zakoñczony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
+If Not error Then MsgBox "Zapis zakoÅ„czony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
 closeConnection
 Exit Sub
 
@@ -809,7 +809,7 @@ With sht
     Next i
     If found = False Then
         error = True
-        MsgBox "Struktura raportu wydaje siê zmieniona. Prawid³owy typ raportu to raport ""Green coffee - BOM overview LR (BOMLR)"" z R/3 SQ01. ¯adne dane nie zosta³y dodane do bazy.", vbOKOnly + vbCritical, "B³êdna struktura raportu"
+        MsgBox "Struktura raportu wydaje siÄ™ zmieniona. PrawidÅ‚owy typ raportu to raport ""Green coffee - BOM overview LR (BOMLR)"" z R/3 SQ01. Å»adne dane nie zostaÅ‚y dodane do bazy.", vbOKOnly + vbCritical, "BÅ‚Ä™dna struktura raportu"
     Else
         'we identified all columns needed. Let's crack on
         lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).Row
@@ -919,7 +919,7 @@ If Not rs Is Nothing Then
     Set rs = Nothing
 End If
 eTime = Now
-If Not error Then MsgBox "Zapis zakoñczony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
+If Not error Then MsgBox "Zapis zakoÅ„czony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
 closeConnection
 Exit Sub
 
@@ -1017,7 +1017,7 @@ With sht
     Next i
     If found = False Then
         error = True
-        MsgBox "Struktura raportu wydaje siê zmieniona. Prawid³owy typ raportu to raport ""Costing data (ZCOMM_HU)"" z R/3 SQ01 (group MMI). ¯adne dane nie zosta³y dodane do bazy.", vbOKOnly + vbCritical, "B³êdna struktura raportu"
+        MsgBox "Struktura raportu wydaje siÄ™ zmieniona. PrawidÅ‚owy typ raportu to raport ""Costing data (ZCOMM_HU)"" z R/3 SQ01 (group MMI). Å»adne dane nie zostaÅ‚y dodane do bazy.", vbOKOnly + vbCritical, "BÅ‚Ä™dna struktura raportu"
     Else
         'we identified all columns needed. Let's crack on
         lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).Row
@@ -1105,7 +1105,7 @@ If Not rs Is Nothing Then
     Set rs = Nothing
 End If
 eTime = Now
-If Not error Then MsgBox "Zapis zakoñczony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
+If Not error Then MsgBox "Zapis zakoÅ„czony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
 closeConnection
 Exit Sub
 
@@ -1181,7 +1181,7 @@ With sht
     Next i
     If found = False Then
         error = True
-        MsgBox "Struktura raportu wydaje siê zmieniona. Prawid³owy typ raportu to raport ""Zlecenia z parti¹ dosypan¹""", vbOKOnly + vbCritical, "B³êdna struktura raportu"
+        MsgBox "Struktura raportu wydaje siÄ™ zmieniona. PrawidÅ‚owy typ raportu to raport ""Zlecenia z partiÄ… dosypanÄ…""", vbOKOnly + vbCritical, "BÅ‚Ä™dna struktura raportu"
     Else
         updateConnection
         'continue
@@ -1259,7 +1259,7 @@ End With
 Exit_here:
 closeConnection
 eTime = Now
-If Not error Then MsgBox "Zapis zakoñczony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
+If Not error Then MsgBox "Zapis zakoÅ„czony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
 Exit Sub
 
 err_trap:
@@ -1335,7 +1335,7 @@ With sht
     Next i
     If found = False Then
         error = True
-        MsgBox "Struktura raportu wydaje siê zmieniona. Prawid³owy typ raportu to MB51 w uk³adzie M024_ROB", vbOKOnly + vbCritical, "B³êdna struktura raportu"
+        MsgBox "Struktura raportu wydaje siÄ™ zmieniona. PrawidÅ‚owy typ raportu to MB51 w ukÅ‚adzie M024_ROB", vbOKOnly + vbCritical, "BÅ‚Ä™dna struktura raportu"
     Else
         updateConnection
         'continue
@@ -1448,7 +1448,7 @@ End With
 Exit_here:
 closeConnection
 eTime = Now
-If Not error Then MsgBox "Zapis zakoñczony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
+If Not error Then MsgBox "Zapis zakoÅ„czony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
 Exit Sub
 
 err_trap:
@@ -1561,7 +1561,7 @@ With sht
     Next i
     If found = False Then
         error = True
-        MsgBox "Struktura raportu wydaje siê zmieniona. Prawid³owy typ raportu to raport ""Production Order Variance Report (ZZZV_VARIANCEREPORT)"" z R/3. ¯adne dane nie zosta³y dodane do bazy.", vbOKOnly + vbCritical, "B³êdna struktura raportu"
+        MsgBox "Struktura raportu wydaje siÄ™ zmieniona. PrawidÅ‚owy typ raportu to raport ""Production Order Variance Report (ZZZV_VARIANCEREPORT)"" z R/3. Å»adne dane nie zostaÅ‚y dodane do bazy.", vbOKOnly + vbCritical, "BÅ‚Ä™dna struktura raportu"
     Else
         Unload impForm
         wait.Show
@@ -1738,7 +1738,7 @@ If Not rs Is Nothing Then
 End If
 eTime = Now
 Unload wait
-If Not error Then MsgBox "Zapis zakoñczony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
+If Not error Then MsgBox "Zapis zakoÅ„czony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
 closeConnection
 Exit Sub
 
@@ -1840,7 +1840,7 @@ With sht
     Next i
     If found = False Then
         error = True
-        MsgBox "Struktura raportu wydaje siê zmieniona. Prawid³owy typ raportu to raport ""MRP View Data (IMPECT_MRP)"" z R/3 SQ01. ¯adne dane nie zosta³y dodane do bazy.", vbOKOnly + vbCritical, "B³êdna struktura raportu"
+        MsgBox "Struktura raportu wydaje siÄ™ zmieniona. PrawidÅ‚owy typ raportu to raport ""MRP View Data (IMPECT_MRP)"" z R/3 SQ01. Å»adne dane nie zostaÅ‚y dodane do bazy.", vbOKOnly + vbCritical, "BÅ‚Ä™dna struktura raportu"
     Else
         'we identified all columns needed. Let's crack on
         lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).Row
@@ -1852,7 +1852,7 @@ With sht
                 Exit For
             Else
                 If InStr(1, sht.Cells(s, tCol).Value, "zcom", vbTextCompare) = 0 And InStr(1, sht.Cells(s, tCol).Value, "zfor", vbTextCompare) = 0 And InStr(1, sht.Cells(s, tCol).Value, "zfin", vbTextCompare) = 0 And InStr(1, sht.Cells(s, tCol).Value, "zpkg", vbTextCompare) = 0 Then
-                    MsgBox "Artyku³ " & sht.Cells(s, zfinCol).Value & " ma nieprawid³owy typ (" & sht.Cells(s, tCol).Value & ") i zostanie pominiêty"
+                    MsgBox "ArtykuÅ‚ " & sht.Cells(s, zfinCol).Value & " ma nieprawidÅ‚owy typ (" & sht.Cells(s, tCol).Value & ") i zostanie pominiÄ™ty"
                 Else
                     If counter = 0 Then
                         boundery = 0
@@ -1943,7 +1943,7 @@ If Not rs Is Nothing Then
     Set rs = Nothing
 End If
 eTime = Now
-If Not error Then MsgBox "Zapis zakoñczony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
+If Not error Then MsgBox "Zapis zakoÅ„czony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
 closeConnection
 Exit Sub
 
@@ -2019,15 +2019,15 @@ With sht
                     oZfinCol = n
                     Case Is = "Nr zl. blendu"
                     oZforCol = n
-                    Case Is = "Wyrób gotowy"
+                    Case Is = "WyrÃ³b gotowy"
                     zfinCol = n
                     Case Is = "Nr prod. blendu"
                     zforCol = n
                     Case Is = "Status pak."
                     statCol = n
-                    Case Is = "Status pra¿."
+                    Case Is = "Status praÅ¼."
                     rStatCol = n
-                    Case Is = "Nr oper. pra¿enia"
+                    Case Is = "Nr oper. praÅ¼enia"
                     rMesStringCol = n
                     Case Is = "Nr oper. pak."
                     pMesStringCol = n
@@ -2037,7 +2037,7 @@ With sht
     Next i
     If found = False Then
         error = True
-        MsgBox "Struktura raportu wydaje siê zmieniona. Prawid³owy typ raportu to raport ""Powi¹zania operacji"" z MES. ¯adne dane nie zosta³y dodane do bazy.", vbOKOnly + vbCritical, "B³êdna struktura raportu"
+        MsgBox "Struktura raportu wydaje siÄ™ zmieniona. PrawidÅ‚owy typ raportu to raport ""PowiÄ…zania operacji"" z MES. Å»adne dane nie zostaÅ‚y dodane do bazy.", vbOKOnly + vbCritical, "BÅ‚Ä™dna struktura raportu"
     Else
         updateConnection
         'continue
@@ -2062,7 +2062,7 @@ With sht
                     boundery = counter / 1000
                     ReDim Preserve zfinStr(boundery) As String
                 End If
-                var = unEnter(sht.Cells(s, zforCol).Value, sht.Cells(s, rStatCol).Value, "Zakoñczone")
+                var = unEnter(sht.Cells(s, zforCol).Value, sht.Cells(s, rStatCol).Value, "ZakoÅ„czone")
                 If IsArray(var) Then
                     For y = LBound(var) To UBound(var)
                         zStr = var(y)
@@ -2113,8 +2113,8 @@ With sht
                     boundery = counter / 1000
                     ReDim Preserve operStr(boundery) As String
                 End If
-                zVar = unEnter(sht.Cells(s, zforCol).Value, sht.Cells(s, rStatCol).Value, "Zakoñczone", True)
-                var = unEnter(sht.Cells(s, oZforCol).Value, sht.Cells(s, rStatCol).Value, "Zakoñczone", True)
+                zVar = unEnter(sht.Cells(s, zforCol).Value, sht.Cells(s, rStatCol).Value, "ZakoÅ„czone", True)
+                var = unEnter(sht.Cells(s, oZforCol).Value, sht.Cells(s, rStatCol).Value, "ZakoÅ„czone", True)
                 If IsArray(var) Then
                     For y = LBound(var) To UBound(var)
                         oZforStr = var(y)
@@ -2220,8 +2220,8 @@ With sht
                     boundery = counter / 1000
                     ReDim Preserve operStr(boundery) As String
                 End If
-                var = unEnter(sht.Cells(s, rMesStringCol).Value, sht.Cells(s, rStatCol).Value, "Zakoñczone", True)
-                oVar = unEnter(sht.Cells(s, oZforCol).Value, sht.Cells(s, rStatCol).Value, "Zakoñczone", True)
+                var = unEnter(sht.Cells(s, rMesStringCol).Value, sht.Cells(s, rStatCol).Value, "ZakoÅ„czone", True)
+                oVar = unEnter(sht.Cells(s, oZforCol).Value, sht.Cells(s, rStatCol).Value, "ZakoÅ„czone", True)
                 If IsArray(var) And IsArray(oVar) = False Then
                     'perform only if there's array of mes strings and 1 zfor sapId
                     For y = LBound(var) To UBound(var)
@@ -2289,7 +2289,7 @@ With sht
                     ReDim Preserve operStr(boundery) As String
                 End If
                 oZfinStr = unEnter(sht.Cells(s, oZfinCol).Value)
-                var = unEnter(sht.Cells(s, oZforCol).Value, sht.Cells(s, rStatCol).Value, "Zakoñczone")
+                var = unEnter(sht.Cells(s, oZforCol).Value, sht.Cells(s, rStatCol).Value, "ZakoÅ„czone")
                 If IsArray(var) Then
                     For y = LBound(var) To UBound(var)
                         oZforStr = var(y)
@@ -2332,7 +2332,7 @@ End With
 Exit_here:
 closeConnection
 eTime = Now
-If Not error Then MsgBox "Zapis zakoñczony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
+If Not error Then MsgBox "Zapis zakoÅ„czony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
 Exit Sub
 
 err_trap:
@@ -2551,13 +2551,13 @@ If found Then
     
 Else
     error = True
-    MsgBox "Struktura raportu wydaje siê zmieniona. Prawid³owy typ raportu to raport ""COOIS"" z SAP R/3 w wariancie ""/M024ROB"". ¯adne dane nie zosta³y dodane do bazy.", vbOKOnly + vbCritical, "B³êdna struktura raportu"
+    MsgBox "Struktura raportu wydaje siÄ™ zmieniona. PrawidÅ‚owy typ raportu to raport ""COOIS"" z SAP R/3 w wariancie ""/M024ROB"". Å»adne dane nie zostaÅ‚y dodane do bazy.", vbOKOnly + vbCritical, "BÅ‚Ä™dna struktura raportu"
 End If
 
 Exit_here:
 closeConnection
 eTime = Now
-If Not error Then MsgBox "Zapis zakoñczony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
+If Not error Then MsgBox "Zapis zakoÅ„czony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
 Exit Sub
 
 err_trap:
@@ -2791,13 +2791,13 @@ If found Then
     Next counter
 Else
     error = True
-    MsgBox "Struktura raportu wydaje siê zmieniona. Prawid³owy typ raportu to raport ""Requirements View"" z SAP APO. ¯adne dane nie zosta³y dodane do bazy.", vbOKOnly + vbCritical, "B³êdna struktura raportu"
+    MsgBox "Struktura raportu wydaje siÄ™ zmieniona. PrawidÅ‚owy typ raportu to raport ""Requirements View"" z SAP APO. Å»adne dane nie zostaÅ‚y dodane do bazy.", vbOKOnly + vbCritical, "BÅ‚Ä™dna struktura raportu"
 End If
 
 Exit_here:
 closeConnection
 eTime = Now
-If Not error Then MsgBox "Zapis zakoñczony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
+If Not error Then MsgBox "Zapis zakoÅ„czony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
 Exit Sub
 
 err_trap:
@@ -3212,14 +3212,14 @@ With sht
                     aCol = n
                     Case Is = "Nr produktu"
                     pCol = n
-                    Case Is = "Wartoœæ atrybutu"
+                    Case Is = "WartoÅ›Ä‡ atrybutu"
                     vCol = n
                 End Select
             Next n
         End If
     Next i
     If found = False Then
-        MsgBox "Struktura raportu wydaje siê zmieniona. Prawid³owy typ raportu to raport ""Lista przypisañ atrybutów do artyku³ów"" z MES. ¯adne dane nie zosta³y dodane do bazy.", vbOKOnly + vbCritical, "B³êdna struktura raportu"
+        MsgBox "Struktura raportu wydaje siÄ™ zmieniona. PrawidÅ‚owy typ raportu to raport ""Lista przypisaÅ„ atrybutÃ³w do artykuÅ‚Ã³w"" z MES. Å»adne dane nie zostaÅ‚y dodane do bazy.", vbOKOnly + vbCritical, "BÅ‚Ä™dna struktura raportu"
     Else
         'we identified all columns needed. Let's crack on
         updateConnection (90)
@@ -3234,7 +3234,7 @@ With sht
             ElseIf .Cells(s, aCol).Value = "ORGANICZNA" Then
                 fldName = "eco?"
             ElseIf .Cells(s, aCol).Value = "" Then
-                MsgBox "Dodano " & tot & " rekordów do bazy danych, zaktualizowano " & upt & " rekordów bazy danych!", vbOKOnly + vbInformation, "Powodzenie"
+                MsgBox "Dodano " & tot & " rekordÃ³w do bazy danych, zaktualizowano " & upt & " rekordÃ³w bazy danych!", vbOKOnly + vbInformation, "Powodzenie"
                 Exit For
             Else
                 fldName = ""
@@ -3370,7 +3370,7 @@ lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlP
 Set c3 = sht.Cells.Find("Nr magazynu:", LookIn:=xlValues, LookAt:=xlWhole)
 If Not c3 Is Nothing Then
     sht.Range(Cells(c3.Row, c3.Column), Cells(lastRow, c3.Column)).Replace "'", "", LookAt:=xlPart
-    Set c = sht.Cells.Find("Nr artyku³u:", LookIn:=xlValues, LookAt:=xlWhole)
+    Set c = sht.Cells.Find("Nr artykuÅ‚u:", LookIn:=xlValues, LookAt:=xlWhole)
     If Not c Is Nothing Then
         firstAddress = c.Address
         Do
@@ -3390,7 +3390,7 @@ If Not c3 Is Nothing Then
         Loop While Not c Is Nothing And c.Address <> firstAddress
     Else
         isError = True
-        MsgBox "Struktura raportu wydaje siê zmieniona. Prawid³owy typ raportu to raport ""Zestawienie obrotów wg artyku³ów"" z Qguar. ¯adne dane nie zosta³y dodane do bazy.", vbOKOnly + vbCritical, "B³êdna struktura raportu"
+        MsgBox "Struktura raportu wydaje siÄ™ zmieniona. PrawidÅ‚owy typ raportu to raport ""Zestawienie obrotÃ³w wg artykuÅ‚Ã³w"" z Qguar. Å»adne dane nie zostaÅ‚y dodane do bazy.", vbOKOnly + vbCritical, "BÅ‚Ä™dna struktura raportu"
     End If
     If Not isError Then
         For counter = LBound(zfinStr) To UBound(zfinStr)
@@ -3415,7 +3415,7 @@ If Not c3 Is Nothing Then
         
         counter = 0
         
-        Set c1 = sht.Cells.Find("Nr artyku³u:", LookIn:=xlValues, LookAt:=xlWhole)
+        Set c1 = sht.Cells.Find("Nr artykuÅ‚u:", LookIn:=xlValues, LookAt:=xlWhole)
         If Not c1 Is Nothing Then
             firstAddress1 = c1.Address
             theFirstOne = c1.Row
@@ -3592,11 +3592,11 @@ If Not c3 Is Nothing Then
         
         closeConnection
         eTime = Now
-        MsgBox "Upload zakoñczony powodzeniem w " & Abs(DateDiff("s", eTime, sTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
+        MsgBox "Upload zakoÅ„czony powodzeniem w " & Abs(DateDiff("s", eTime, sTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
     End If
 Else
     isError = True
-    MsgBox "Struktura raportu wydaje siê zmieniona. Prawid³owy typ raportu to raport ""Zestawienie obrotów wg artyku³ów"" z Qguar. ¯adne dane nie zosta³y dodane do bazy.", vbOKOnly + vbCritical, "B³êdna struktura raportu"
+    MsgBox "Struktura raportu wydaje siÄ™ zmieniona. PrawidÅ‚owy typ raportu to raport ""Zestawienie obrotÃ³w wg artykuÅ‚Ã³w"" z Qguar. Å»adne dane nie zostaÅ‚y dodane do bazy.", vbOKOnly + vbCritical, "BÅ‚Ä™dna struktura raportu"
 End If
 Exit_here:
 closeConnection

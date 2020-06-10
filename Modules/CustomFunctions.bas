@@ -1,4 +1,4 @@
-Attribute VB_Name = "CustomFunctions"
+ï»¿Attribute VB_Name = "CustomFunctions"
 Public Function PROD_WAGA_PALETY(prodNumber As Long) As Double
 Dim rs As ADODB.Recordset
 Dim sConn As String
@@ -88,18 +88,18 @@ End If
 End Function
 
 Public Function CS_HELP()
-MsgBox "PROD_WAGA - zwraca wagê produktu w KG. Jako parametr przyjmuje index produktu." _
-        & vbNewLine & "PROD_NAZWA - zwraca nazwê produktu. Jako parametr przyjmuje index produktu. " _
-        & vbNewLine & "PROD_WAGA_PALETY - zwraca wagê netto palety produktu. Jako parametr przyjmuje index produktu. " _
-        & vbNewLine & "PROD_SZT_NA_PALECIE - zwraca iloœæ sztuk na palecie. Jako parametr przyjmuje index produktu. " _
-        & vbNewLine & "PROD_SZT_W_KARTONIE - zwraca iloœæ sztuk w kartonie. Jako parametr przyjmuje index produktu. " _
-        & vbNewLine & "OSTATNIA_PELNA - zwraca adres ostatniej niepustej komórki w zakresie podanym jako parametr. " _
-        & vbNewLine & "PROD_WARSTW_NA_PALECIE - zwraca iloœæ warstw kartonów na palecie. Jako parametr przyjmuje index produktu. " _
-        & vbNewLine & "PROD_CZY_CHEP - zwraca PRAWDA jeœli produkt jest na palecie CHEP. Jako parametr przyjmuje index produktu. " _
-        & vbNewLine & "PROD_CZY_EURO - zwraca PRAWDA jeœli produkt jest na palecie EURO. Jako parametr przyjmuje index produktu. " _
+MsgBox "PROD_WAGA - zwraca wagÄ™ produktu w KG. Jako parametr przyjmuje index produktu." _
+        & vbNewLine & "PROD_NAZWA - zwraca nazwÄ™ produktu. Jako parametr przyjmuje index produktu. " _
+        & vbNewLine & "PROD_WAGA_PALETY - zwraca wagÄ™ netto palety produktu. Jako parametr przyjmuje index produktu. " _
+        & vbNewLine & "PROD_SZT_NA_PALECIE - zwraca iloÅ›Ä‡ sztuk na palecie. Jako parametr przyjmuje index produktu. " _
+        & vbNewLine & "PROD_SZT_W_KARTONIE - zwraca iloÅ›Ä‡ sztuk w kartonie. Jako parametr przyjmuje index produktu. " _
+        & vbNewLine & "OSTATNIA_PELNA - zwraca adres ostatniej niepustej komÃ³rki w zakresie podanym jako parametr. " _
+        & vbNewLine & "PROD_WARSTW_NA_PALECIE - zwraca iloÅ›Ä‡ warstw kartonÃ³w na palecie. Jako parametr przyjmuje index produktu. " _
+        & vbNewLine & "PROD_CZY_CHEP - zwraca PRAWDA jeÅ›li produkt jest na palecie CHEP. Jako parametr przyjmuje index produktu. " _
+        & vbNewLine & "PROD_CZY_EURO - zwraca PRAWDA jeÅ›li produkt jest na palecie EURO. Jako parametr przyjmuje index produktu. " _
         & vbNewLine & "PROD_INDEX_FOLII - zwraca index folii dla produktu wybranego jako parametr." _
         & vbNewLine & "PROD_INDEX_KAWY - zwraca index ZFORa dla produktu wybranego jako parametr. " _
-        & vbNewLine & "PROD_LINIA - zwraca linie produkcyjne, na których mo¿e byæ produkowany produkt podany jako parametr."
+        & vbNewLine & "PROD_LINIA - zwraca linie produkcyjne, na ktÃ³rych moÅ¼e byÄ‡ produkowany produkt podany jako parametr."
 
 End Function
 

@@ -1,4 +1,4 @@
-Attribute VB_Name = "Ribbon"
+﻿Attribute VB_Name = "Ribbon"
 Public rib As IRibbonUI
 Private Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (destination As Any, source As Any, ByVal length As Long)
 

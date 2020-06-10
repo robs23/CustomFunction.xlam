@@ -1,4 +1,4 @@
-Attribute VB_Name = "Connectors"
+﻿Attribute VB_Name = "Connectors"
 
 Public Sub connectScada()
 'Dim cmd As ADODB.Command

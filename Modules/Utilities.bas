@@ -1,4 +1,4 @@
-Attribute VB_Name = "Utilities"
+﻿Attribute VB_Name = "Utilities"
 
 Public Function unEnter(val As String, Optional validator As Variant, Optional validatorStr As Variant, Optional allowDuplicates As Variant) As Variant
 'return one of following:

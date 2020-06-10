@@ -1,4 +1,4 @@
-Attribute VB_Name = "this"
+ï»¿Attribute VB_Name = "this"
 'Public AdoConn As New ADODB.Connection
 Public ScadaConn As New ADODB.Connection
 'Public zfins As New Collection
@@ -15,7 +15,7 @@ If Not ActiveWorkbook.ReadOnly Then
             shipments.Save
         Else
             Cancel = True
-            MsgBox "Nie udalo sie zapisac danych z powodu bledów. Popraw dane i spróbuj jeszcze raz", vbOKOnly, "Lipa"
+            MsgBox "Nie udalo sie zapisac danych z powodu bledÃ³w. Popraw dane i sprÃ³buj jeszcze raz", vbOKOnly, "Lipa"
         End If
     End If
 End If
@@ -126,7 +126,7 @@ For i = 1 To 100
                             Else
                                 missingCount = missingCount + 1
                                 If Len(missingStr) = 0 Then
-                                    missingStr = " zleceñ z powodu niewype³nionych danych lokacji (arkusz ""Lokacje""). Brakuj¹ce lokacje: " & LPlant & ", "
+                                    missingStr = " zleceÅ„ z powodu niewypeÅ‚nionych danych lokacji (arkusz ""Lokacje""). BrakujÄ…ce lokacje: " & LPlant & ", "
                                 Else
                                     missingStr = missingStr & LPlant & ", "
                                 End If
@@ -156,11 +156,11 @@ eTime = Now
 
 Exit_here:
 If Not isError Then
-    msgStr = "Dodano " & added & " zleceñ w czasie " & DateDiff("s", sTime, eTime) & " sek."
+    msgStr = "Dodano " & added & " zleceÅ„ w czasie " & DateDiff("s", sTime, eTime) & " sek."
     If Len(missingStr) > 0 Then
         msgStr = msgStr & vbNewLine
         missingStr = Left(missingStr, Len(missingStr) - 2)
-        msgStr = msgStr & "Pominiêto " & missingCount & missingStr
+        msgStr = msgStr & "PominiÄ™to " & missingCount & missingStr
     End If
     MsgBox msgStr
 End If

@@ -2431,7 +2431,7 @@ If found Then
     counter = 0
     For i = 1 To 30000
         theType = ""
-        If Len(sht.Cells(i, bCol).Value) > 0 And (sht.Cells(i, uCol).Value = "PC" Or sht.Cells(i, uCol).Value = "KG") Then
+        If (sht.Cells(i, uCol).Value = "PC" Or sht.Cells(i, uCol).Value = "KG") Then
             If sht.Cells(i, uCol).Value = "PC" Then
                 theType = "zfin"
             Else
@@ -2474,7 +2474,7 @@ If found Then
     counter = 0
     For i = 1 To 30000
         theType = ""
-        If Len(sht.Cells(i, bCol).Value) > 0 And (sht.Cells(i, uCol).Value = "PC" Or sht.Cells(i, uCol).Value = "KG") Then
+        If (sht.Cells(i, uCol).Value = "PC" Or sht.Cells(i, uCol).Value = "KG") Then
             If sht.Cells(i, uCol).Value = "PC" Then
                 theType = "p"
             Else

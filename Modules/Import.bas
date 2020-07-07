@@ -1425,7 +1425,7 @@ With sht
                     boundery = counter / 1000
                     ReDim Preserve rStr(boundery) As String
                 End If
-                combId = batches(CStr(CDbl(sht.Cells(s, fCol)))).bId & "_" & orders(CStr(sht.Cells(s, tCol))).orderId & "_" & sht.Cells(s, bCol)
+                combId = batches(CStr(DropLSU(sht.Cells(s, fCol)))).bId & "_" & orders(CStr(sht.Cells(s, tCol))).orderId & "_" & sht.Cells(s, bCol)
                 rStr(boundery) = rStr(boundery) & "('" & sht.Cells(s, dCol).Value & "'," & batches(CStr(DropLSU(sht.Cells(s, fCol)))).bId & "," & orders(CStr(sht.Cells(s, tCol))).orderId & "," & -1 * Replace(sht.Cells(s, aCol), ",", ".") & ",'" & combId & "'),"
                 counter = counter + 1
             End If

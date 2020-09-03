@@ -874,6 +874,7 @@ With sht
         'let's add bom reconciliation information
         
         Set rs = AdoConn.Execute("INSERT INTO tbBomReconciliation (dateAdded, createdBy) VALUES ('" & Now & "', 43);SELECT SCOPE_IDENTITY()")
+        Set rs = rs.NextRecordset
         sessionId = rs.Fields(0)
         rs.Close
         Set rs = Nothing
@@ -1059,6 +1060,7 @@ With sht
         'let's add bom reconciliation information
         
         Set rs = AdoConn.Execute("INSERT INTO tbCostingReconciliation (dateAdded, addedBy) VALUES ('" & Now & "', 43);SELECT SCOPE_IDENTITY()")
+        Set rs = rs.NextRecordset
         sessionId = rs.Fields(0)
         rs.Close
         Set rs = Nothing
@@ -1895,6 +1897,7 @@ With sht
         'let's add scrap reconciliation information
         
         Set rs = AdoConn.Execute("INSERT INTO tbScrapReconciliation (dateAdded, createdBy) VALUES ('" & Now & "', 43);SELECT SCOPE_IDENTITY()")
+        Set rs = rs.NextRecordset
         sessionId = rs.Fields(0)
         rs.Close
         Set rs = Nothing

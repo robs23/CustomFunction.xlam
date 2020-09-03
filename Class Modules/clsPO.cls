@@ -117,6 +117,7 @@ Dim rs As ADODB.Recordset
 Dim poi As clsPoItem
 
 Set rs = AdoConn.Execute("INSERT INTO tbPo (Lplant, shipmentId) VALUES ('" & LPlant & "'," & shId & ");SELECT SCOPE_IDENTITY()")
+Set rs = rs.NextRecordset
 poId = rs.Fields(0).Value
 rs.Close
 Set rs = Nothing

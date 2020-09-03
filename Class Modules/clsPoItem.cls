@@ -28,6 +28,7 @@ Public Sub Save(poId As Integer)
 Dim rs As ADODB.Recordset
 
 Set rs = AdoConn.Execute("INSERT INTO tbPoItem (ProductId, Amount, PoId) VALUES (" & zfins(CStr(index)).zfinId & "," & amount & "," & poId & ");SELECT SCOPE_IDENTITY()")
+Set rs = rs.NextRecordset
 poItemId = rs.Fields(0).Value
 rs.Close
 Set rs = Nothing

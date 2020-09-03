@@ -83,6 +83,7 @@ On Error GoTo err_trap
 If shipmentId = 0 Then
     'new shipment
     Set rs = AdoConn.Execute("INSERT INTO tbPlannedShipments (PlannedDate, DeliveryNotes, AddedOn) VALUES ('" & ShipmentDate & "','" & DeliveryNotes & "','" & Now & "');SELECT SCOPE_IDENTITY()")
+    Set rs = rs.NextRecordset
     shipmentId = rs.Fields(0).Value
     ActiveWorkbook.Sheets("Plan").Cells(5, Column) = shipmentId
     rs.Close

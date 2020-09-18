@@ -7,7 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
-Public poItemId As Integer
+Public poItemId As Long
 Private pIndex As Long
 Private pAmount As Double
 

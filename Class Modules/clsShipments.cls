@@ -137,13 +137,13 @@ For Each stock In Stocks
     stock.Save
 Next stock
 
-Exit_here:
+exit_here:
 closeConnection
 Exit Sub
 
 err_trap:
 MsgBox "Error in clsShipments.Save. " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Sub
 
@@ -186,7 +186,7 @@ If Not rs.EOF Then
     Loop
 End If
 
-Exit_here:
+exit_here:
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
     Set rs = Nothing
@@ -195,7 +195,7 @@ Exit Sub
 
 err_trap:
 MsgBox "Error in GetMissingIds of clsShipments. Description: " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Sub
 
@@ -219,12 +219,12 @@ If Len(res) > 0 Then res = Left(res, Len(res) - 1)
 
 GetLplants = res
 
-Exit_here:
+exit_here:
 Exit Function
 
 err_trap:
 MsgBox "Error in GetLplants. Description: " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Function
 
@@ -257,7 +257,7 @@ added = 0
 sTime = Now
 
 For i = 1 To 100
-    If isError Then GoTo Exit_here
+    If isError Then GoTo exit_here
     If sht.Cells(6, 11 + i) = "Shipment" Then
         If Not sht.Cells(12, 11 + i + 1) = "0" Or Not sht.Cells(13, 11 + i + 1) = "0" Then
             If Not sht.Cells(8, 11 + i) = "" Then
@@ -281,19 +281,19 @@ For i = 1 To 100
                         Else
                             amount = sht.Cells(y, 11 + i)
                             If amount > 0 Then
-                                LPlant = sht.Range("G" & y)
-                                If LPlant = "0" Then
+                                Lplant = sht.Range("G" & y)
+                                If Lplant = "0" Then
                                     MsgBox "Brak lokacji dla produktu " & index & ". Uzupełnij dane. Nic nie zostało zaimportowane!", vbCritical + vbOKOnly, "Brak danych"
                                     isError = True 'set the flag
                                     Exit For
                                 End If
                                 'check if we have all data of location
-                                Set newPo = ship.getPos(LPlant)
+                                Set newPo = ship.getPos(Lplant)
                                 If newPo Is Nothing Then
                                     'create new one
                                     Set newPo = New clsPO
                                     With newPo
-                                        .LPlant = LPlant
+                                        .Lplant = Lplant
                                     End With
                                     ship.append newPo
                                 End If
@@ -327,7 +327,7 @@ End If
 
 eTime = Now
 
-Exit_here:
+exit_here:
 If isError Then res = False
 If res = False Then
     MsgBox "Błąd w clsShipments.Scan. Kolumna " & col2Letter(ship.Column) & ", wierz " & y & ". " & Err.Description
@@ -337,7 +337,7 @@ Exit Function
 
 err_trap:
 MsgBox "Błąd w clsShipments.Scan. Kolumna " & col2Letter(ship.Column) & ", wierz " & y & ". " & Err.Description
-Resume Exit_here
+Resume exit_here
 End Function
 
 Private Function GetDN(dn As String) As String
@@ -415,7 +415,7 @@ If IsDate(initialDate) Then
                     stock.PlannedDate = theDate
                     stock.ProductId = zfins(CStr(index)).zfinId
                     stock.amount = amount
-                    stock.LPlant = sht.Cells(y, 7)
+                    stock.Lplant = sht.Cells(y, 7)
                     Stocks.Add stock
                 End If
             End If
@@ -426,14 +426,14 @@ Else
     res = False
 End If
 
-Exit_here:
+exit_here:
 GetStocks = res
 Exit Function
 
 err_trap:
 res = False
 MsgBox "Błąd w clsShipments.GetStocks. Kolumna " & col2Letter(8 + (x * 46)) & ", wiersz " & y & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Function
 
@@ -471,7 +471,7 @@ If IsDate(initialDate) Then
                     prod.week = theWeek
                     prod.year = theYear
                     prod.amount = amount
-                    prod.LPlant = sht.Cells(y, 7)
+                    prod.Lplant = sht.Cells(y, 7)
                     prod.ProductId = zfins(CStr(index)).zfinId
                     Productions.Add prod
                 End If
@@ -483,14 +483,14 @@ Else
     res = False
 End If
 
-Exit_here:
+exit_here:
 GetProductions = res
 Exit Function
 
 err_trap:
 res = False
 MsgBox "Błąd w clsShipments.GetProductions. Kolumna " & col2Letter(11 + (x * 46)) & ", wiersz " & y & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Function
 
@@ -520,13 +520,13 @@ If IsNull(ConvertDate) Then
     MsgBox "Nie udało się przekonwertować daty " & theDate & ". Upewnij się że data jest w formacie dd.mm.yyyy np. 31.12.2020"
 End If
 
-Exit_here:
+exit_here:
 Exit Function
 
 err_trap:
 ConvertDate = Null
 MsgBox "Nie udało się przekonwertować daty " & theDate & ". Upewnij się że data jest w formacie dd.mm.yyyy np. 31.12.2020"
-Resume Exit_here
+Resume exit_here
 
 End Function
 

@@ -63,12 +63,12 @@ Public Property Get companyCode() As String
 companyCode = pCompanyCode
 End Property
 
-Public Property Let LPlant(val As String)
+Public Property Let Lplant(val As String)
 pLplant = val
 End Property
 
-Public Property Get LPlant() As String
-LPlant = pLplant
+Public Property Get Lplant() As String
+Lplant = pLplant
 End Property
 
 Public Property Let Unit(val As String)
@@ -116,7 +116,7 @@ Public Sub Save(shId As Integer)
 Dim rs As ADODB.Recordset
 Dim poi As clsPoItem
 
-Set rs = AdoConn.Execute("INSERT INTO tbPo (Lplant, shipmentId) VALUES ('" & LPlant & "'," & shId & ");SELECT SCOPE_IDENTITY()")
+Set rs = AdoConn.Execute("INSERT INTO tbPo (Lplant, shipmentId) VALUES ('" & Lplant & "'," & shId & ");SELECT SCOPE_IDENTITY()")
 Set rs = rs.NextRecordset
 poId = rs.Fields(0).Value
 rs.Close

@@ -23,18 +23,18 @@ Column = pColumn
 End Property
 
 Public Sub append(po As Variant)
-pPos.Add po, po.LPlant
+pPos.Add po, po.Lplant
 End Sub
 
-Public Function getPos(Optional LPlant As Variant) As Variant
+Public Function getPos(Optional Lplant As Variant) As Variant
 Dim po As clsPO
 Dim bool As Boolean
 
-If IsMissing(LPlant) Then
+If IsMissing(Lplant) Then
     Set getPos = pPos
 Else
     For Each po In pPos
-        If po.LPlant = CStr(LPlant) Then
+        If po.Lplant = CStr(Lplant) Then
             bool = True
             Set getPos = po
             Exit For
@@ -63,7 +63,7 @@ Else
     Exists = True
 End If
 
-Exit_here:
+exit_here:
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
     Set rs = Nothing
@@ -96,13 +96,13 @@ For Each po In pPos
         po.Save shipmentId
 Next po
     
-Exit_here:
+exit_here:
 closeConnection
 Exit Sub
 
 err_trap:
 MsgBox "Błąd w clsShipment.SaveToDb. " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Sub
 

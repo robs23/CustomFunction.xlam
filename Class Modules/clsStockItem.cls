@@ -9,10 +9,10 @@ Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
 Public PlannedDate As Date
 Public ProductId As Integer
-Public LPlant As String
+Public Lplant As String
 Public amount As Double
 
 Public Sub Save()
-AdoConn.Execute "INSERT INTO tbPlannedStock (PlannedDate, ProductId, Lplant, Amount, CreatedOn) VALUES ('" & PlannedDate & "', " & ProductId & ", '" & LPlant & "', " & amount & ",'" & Now & "')"
+AdoConn.Execute "INSERT INTO tbPlannedStock (PlannedDate, ProductId, Lplant, Amount, CreatedOn) VALUES ('" & PlannedDate & "', " & ProductId & ", '" & Lplant & "', " & amount & ",'" & Now & "')"
 End Sub
 

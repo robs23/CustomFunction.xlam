@@ -56,6 +56,8 @@ ElseIf Me.cmbReport.Value = "Zlecenia z partią dosypaną" Then
     importRework
 ElseIf Me.cmbReport.Value = "Ruchy powrotne z magazynu (MB51)" Then
     importMb51
+ElseIf Me.cmbReport.Value = "Divider" Then
+    importDivider
 Else
     MsgBox "Najpierw wybierz jedną z pozycji na liście", vbOKOnly + vbInformation, "Błąd"
 End If
@@ -90,6 +92,7 @@ With Me.cmbReport
     .AddItem "INET's OrderList"
     .AddItem "Zlecenia z partią dosypaną"
     .AddItem "Ruchy powrotne z magazynu (MB51)"
+    .AddItem "Divider"
     Me.btnOK.Enabled = False
 End With
 

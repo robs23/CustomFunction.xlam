@@ -10,9 +10,9 @@ Attribute VB_Exposed = False
 Public week As Integer
 Public year As Integer
 Public ProductId As Integer
-Public LPlant As String
+Public Lplant As String
 Public amount As Double
 
 Public Sub Save()
-AdoConn.Execute "INSERT INTO tbPlannedProduction (Week, Year, ProductId, Lplant, Amount, CreatedOn) VALUES (" & week & ", " & year & ", " & ProductId & ", '" & LPlant & "', " & amount & ",'" & Now & "')"
+AdoConn.Execute "INSERT INTO tbPlannedProduction (Week, Year, ProductId, Lplant, Amount, CreatedOn) VALUES (" & week & ", " & year & ", " & ProductId & ", '" & Lplant & "', " & amount & ",'" & Now & "')"
 End Sub

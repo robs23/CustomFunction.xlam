@@ -5,7 +5,7 @@ Dim sConn As String
 Dim sSql As String
 Dim dbPath As String
 
-On Error GoTo Exit_here
+On Error GoTo exit_here
 
 updateConnection
 ' Make a query over the connection.
@@ -19,7 +19,7 @@ If Not rs.EOF Then
 End If
 rs.Close
 
-Exit_here:
+exit_here:
 closeConnection
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
@@ -34,7 +34,7 @@ Dim sConn As String
 Dim sSql As String
 Dim dbPath As String
 
-On Error GoTo Exit_here
+On Error GoTo exit_here
 
 updateConnection
 ' Make a query over the connection.
@@ -48,7 +48,7 @@ If Not rs.EOF Then
 End If
 rs.Close
 
-Exit_here:
+exit_here:
 closeConnection
 Set rs = Nothing
 
@@ -62,7 +62,7 @@ Dim sConn As String
 Dim sSql As String
 Dim dbPath As String
 
-On Error GoTo Exit_here
+On Error GoTo exit_here
 
 updateConnection
 ' Make a query over the connection.
@@ -76,7 +76,7 @@ If Not rs.EOF Then
 End If
 rs.Close
 
-Exit_here:
+exit_here:
 closeConnection
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
@@ -109,7 +109,7 @@ Dim sConn As String
 Dim sSql As String
 Dim dbPath As String
 
-On Error GoTo Exit_here
+On Error GoTo exit_here
 
 updateConnection
 ' Make a query over the connection.
@@ -123,7 +123,7 @@ If Not rs.EOF Then
 End If
 rs.Close
 
-Exit_here:
+exit_here:
 closeConnection
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
@@ -139,7 +139,7 @@ Dim sConn As String
 Dim sSql As String
 Dim dbPath As String
 
-On Error GoTo Exit_here
+On Error GoTo exit_here
 
 updateConnection
 ' Make a query over the connection.
@@ -153,7 +153,7 @@ If Not rs.EOF Then
 End If
 rs.Close
 
-Exit_here:
+exit_here:
 closeConnection
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
@@ -169,7 +169,7 @@ Dim sConn As String
 Dim sSql As String
 Dim dbPath As String
 
-On Error GoTo Exit_here
+On Error GoTo exit_here
 
 updateConnection
 ' Make a query over the connection.
@@ -183,7 +183,7 @@ If Not rs.EOF Then
 End If
 rs.Close
 
-Exit_here:
+exit_here:
 closeConnection
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
@@ -200,7 +200,7 @@ Dim sConn As String
 Dim sSql As String
 Dim dbPath As String
 
-On Error GoTo Exit_here
+On Error GoTo exit_here
 
 updateConnection
 ' Make a query over the connection.
@@ -215,7 +215,7 @@ Else
 End If
 rs.Close
 
-Exit_here:
+exit_here:
 closeConnection
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
@@ -232,7 +232,7 @@ Dim sConn As String
 Dim sSql As String
 Dim dbPath As String
 
-On Error GoTo Exit_here
+On Error GoTo exit_here
 
 updateConnection
 ' Make a query over the connection.
@@ -254,7 +254,7 @@ Else
 End If
 rs.Close
 
-Exit_here:
+exit_here:
 closeConnection
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
@@ -271,7 +271,7 @@ Dim sConn As String
 Dim sSql As String
 Dim dbPath As String
 
-On Error GoTo Exit_here
+On Error GoTo exit_here
 
 updateConnection
 ' Make a query over the connection.
@@ -297,7 +297,7 @@ Else
 End If
 rs.Close
 
-Exit_here:
+exit_here:
 closeConnection
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
@@ -314,7 +314,7 @@ Dim sConn As String
 Dim sSql As String
 Dim dbPath As String
 
-On Error GoTo Exit_here
+On Error GoTo exit_here
 
 updateConnection
 ' Make a query over the connection.
@@ -330,7 +330,7 @@ Else
 End If
 rs.Close
 
-Exit_here:
+exit_here:
 closeConnection
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
@@ -348,7 +348,7 @@ Dim sSql As String
 Dim dbPath As String
 Dim denominator As Double
 
-On Error GoTo Exit_here
+On Error GoTo exit_here
 
 updateConnection
 ' Make a query over the connection.
@@ -418,7 +418,7 @@ End If
 rs.Close
 
 
-Exit_here:
+exit_here:
 closeConnection
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
@@ -440,7 +440,7 @@ Dim sConn As String
 Dim sSql As String
 Dim dbPath As String
 
-On Error GoTo Exit_here
+On Error GoTo exit_here
 
 updateConnection
 ' Make a query over the connection.
@@ -457,7 +457,7 @@ Else
 End If
 rs.Close
 
-Exit_here:
+exit_here:
 closeConnection
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
@@ -474,7 +474,7 @@ Dim sConn As String
 Dim sSql As String
 Dim dbPath As String
 
-On Error GoTo Exit_here
+On Error GoTo exit_here
 
 updateConnection
 sSql = "SELECT tbzfin.zfinIndex, tbZfinProperties.[beans?] FROM tbZfinProperties JOIN tbZfin on tbZfin.zfinId = tbZfinProperties.zfinId WHERE tbZfin.zfinIndex = " & prodNumber & ";"
@@ -492,7 +492,7 @@ Else
 End If
 rs.Close
 
-Exit_here:
+exit_here:
 closeConnection
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
@@ -508,7 +508,7 @@ Dim sConn As String
 Dim sSql As String
 Dim dbPath As String
 
-On Error GoTo Exit_here
+On Error GoTo exit_here
 
 updateConnection
 sSql = "SELECT bomy.*, mat.zfinIndex, freshBom.dateAdded FROM tbBom bomy RIGHT JOIN " _
@@ -528,7 +528,7 @@ Else
 End If
 rs.Close
 
-Exit_here:
+exit_here:
 closeConnection
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close

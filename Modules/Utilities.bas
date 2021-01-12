@@ -94,12 +94,12 @@ Else
     unEnter = val
 End If
 
-Exit_here:
+exit_here:
 Exit Function
 
 err_trap:
 MsgBox "Error in ""unEnter"". Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Function
 
@@ -118,7 +118,7 @@ Else
 End If
 
 
-Exit_here:
+exit_here:
 If isError Then
     inCollection = False
 Else
@@ -128,7 +128,7 @@ Exit Function
 
 err_trap:
 isError = True
-Resume Exit_here
+Resume exit_here
 
 End Function
 

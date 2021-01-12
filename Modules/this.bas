@@ -80,7 +80,7 @@ Dim pos As New Collection
 Dim shipments As New Collection
 Dim ship As clsShipment
 Dim poStr As String
-Dim LPlant As String
+Dim Lplant As String
 Dim newPo As Variant
 Dim missingStr As String
 Dim missingCount As Integer
@@ -110,18 +110,18 @@ For i = 1 To 100
                     Else
                         amount = sht.Cells(y, 11 + i)
                         If amount > 0 Then
-                            LPlant = sht.Range("G" & y)
+                            Lplant = sht.Range("G" & y)
                             'check if we have all data of location
-                            If Not IsNull(purOrg(LPlant)) And Not IsNull(purGroup(LPlant)) And Not IsNull(companyCode(LPlant)) Then
-                                Set newPo = ship.getPos(LPlant)
+                            If Not IsNull(purOrg(Lplant)) And Not IsNull(purGroup(Lplant)) And Not IsNull(companyCode(Lplant)) Then
+                                Set newPo = ship.getPos(Lplant)
                                 If newPo Is Nothing Then
                                     'create new one
                                     Set newPo = New clsPO
                                     With newPo
-                                        .PurchasingOrg = purOrg(LPlant)
-                                        .PurchasingGroup = purGroup(LPlant)
-                                        .companyCode = companyCode(LPlant)
-                                        .LPlant = LPlant
+                                        .PurchasingOrg = purOrg(Lplant)
+                                        .PurchasingGroup = purGroup(Lplant)
+                                        .companyCode = companyCode(Lplant)
+                                        .Lplant = Lplant
                                         .PoDate = sht.Cells(8, 11 + i)
                                         .Unit = sht.Range("E11")
                                     End With
@@ -133,9 +133,9 @@ For i = 1 To 100
                             Else
                                 missingCount = missingCount + 1
                                 If Len(missingStr) = 0 Then
-                                    missingStr = " zleceń z powodu niewypełnionych danych lokacji (arkusz ""Lokacje""). Brakujące lokacje: " & LPlant & ", "
+                                    missingStr = " zleceń z powodu niewypełnionych danych lokacji (arkusz ""Lokacje""). Brakujące lokacje: " & Lplant & ", "
                                 Else
-                                    missingStr = missingStr & LPlant & ", "
+                                    missingStr = missingStr & Lplant & ", "
                                 End If
                             End If
                         End If
@@ -161,7 +161,7 @@ Next ship
 
 eTime = Now
 
-Exit_here:
+exit_here:
 If Not isError Then
     msgStr = "Dodano " & added & " zleceń w czasie " & DateDiff("s", sTime, eTime) & " sek."
     If Len(missingStr) > 0 Then
@@ -176,7 +176,7 @@ Exit Sub
 err_trap:
 isError = True
 MsgBox "Error in addOrdersToSAP. Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Sub
 
@@ -244,7 +244,7 @@ For Each item In po.getItems
     session.findById("wnd[0]/usr/subSUB0:SAPLMEGUI:0013/subSUB2:SAPLMEVIEWS:1100/subSUB2:SAPLMEVIEWS:1200/subSUB1:SAPLMEGUI:1211/tblSAPLMEGUITC_1211/txtMEPO1211-MENGE[6," & y & "]").text = item.amount
     session.findById("wnd[0]/usr/subSUB0:SAPLMEGUI:0013/subSUB2:SAPLMEVIEWS:1100/subSUB2:SAPLMEVIEWS:1200/subSUB1:SAPLMEGUI:1211/tblSAPLMEGUITC_1211/ctxtMEPO1211-MEINS[7," & y & "]").text = po.Unit
     session.findById("wnd[0]/usr/subSUB0:SAPLMEGUI:0013/subSUB2:SAPLMEVIEWS:1100/subSUB2:SAPLMEVIEWS:1200/subSUB1:SAPLMEGUI:1211/tblSAPLMEGUITC_1211/ctxtMEPO1211-EEIND[8," & y & "]").text = strDate
-    session.findById("wnd[0]/usr/subSUB0:SAPLMEGUI:0013/subSUB2:SAPLMEVIEWS:1100/subSUB2:SAPLMEVIEWS:1200/subSUB1:SAPLMEGUI:1211/tblSAPLMEGUITC_1211/ctxtMEPO1211-NAME1[11," & y & "]").text = po.LPlant
+    session.findById("wnd[0]/usr/subSUB0:SAPLMEGUI:0013/subSUB2:SAPLMEVIEWS:1100/subSUB2:SAPLMEVIEWS:1200/subSUB1:SAPLMEGUI:1211/tblSAPLMEGUITC_1211/ctxtMEPO1211-NAME1[11," & y & "]").text = po.Lplant
     y = y + 1
 Next item
 
@@ -262,7 +262,7 @@ End If
 
 End Function
 
-Public Function purOrg(LPlant As String) As Variant
+Public Function purOrg(Lplant As String) As Variant
 Dim i As Integer
 Dim plant As String
 Dim sht As Worksheet
@@ -275,7 +275,7 @@ For i = 2 To 100
     If Len(plant) = 0 Then
         Exit For
     Else
-        If plant = LPlant Then
+        If plant = Lplant Then
             purOrg = sht.Cells(2, i)
             bool = True
             Exit For
@@ -289,7 +289,7 @@ End If
 
 End Function
 
-Public Function purGroup(LPlant As String) As Variant
+Public Function purGroup(Lplant As String) As Variant
 Dim i As Integer
 Dim plant As String
 Dim sht As Worksheet
@@ -302,7 +302,7 @@ For i = 2 To 100
     If Len(plant) = 0 Then
         Exit For
     Else
-        If plant = LPlant Then
+        If plant = Lplant Then
             purGroup = sht.Cells(3, i)
             bool = True
             Exit For
@@ -316,7 +316,7 @@ End If
 
 End Function
 
-Public Function companyCode(LPlant As String) As Variant
+Public Function companyCode(Lplant As String) As Variant
 Dim i As Integer
 Dim plant As String
 Dim sht As Worksheet
@@ -329,7 +329,7 @@ For i = 2 To 100
     If Len(plant) = 0 Then
         Exit For
     Else
-        If plant = LPlant Then
+        If plant = Lplant Then
             companyCode = sht.Cells(4, i)
             bool = True
             Exit For
@@ -395,7 +395,7 @@ If Not rs.EOF Then
     Loop
 End If
 
-Exit_here:
+exit_here:
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
     Set rs = Nothing
@@ -405,7 +405,7 @@ Exit Sub
 
 err_trap:
 MsgBox "Error in downloadZfins. Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Sub
 

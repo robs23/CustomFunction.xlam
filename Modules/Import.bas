@@ -8,6 +8,8 @@ Public Qdocs As New Collection
 Public operations As New Collection
 Public orders As New Collection
 Public locations As New Collection
+Public dividerWeek As Integer
+Public dividerYear As Integer
 
 Public Sub importButton(control As IRibbonControl)
 importer
@@ -263,7 +265,7 @@ With sht
     End If
 End With
 
-Exit_here:
+exit_here:
 closeConnection
 eTime = Now
 If Not error Then MsgBox "Zapis zakończony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
@@ -272,7 +274,7 @@ Exit Sub
 err_trap:
 MsgBox "Error in ""importMesQuantities"". Error number: " & Err.Number & ", " & Err.Description
 error = True
-Resume Exit_here
+Resume exit_here
 
 End Sub
 
@@ -683,7 +685,7 @@ With sht
     End If
 End With
 
-Exit_here:
+exit_here:
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
     Set rs = Nothing
@@ -696,7 +698,7 @@ Exit Sub
 err_trap:
 error = True
 MsgBox "Error in saveProductionPlan. Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 
 End Sub
@@ -721,14 +723,14 @@ Else
     newPlanVersion = rs.Fields(0)
 End If
 
-Exit_here:
+exit_here:
 closeConnection
 Set rs = Nothing
 Exit Function
 
 err_trap:
 MsgBox "Error in newPlanVersion. Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Function
 
@@ -914,7 +916,7 @@ With sht
     End If
 End With
 
-Exit_here:
+exit_here:
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
     Set rs = Nothing
@@ -927,7 +929,7 @@ Exit Sub
 err_trap:
 error = True
 MsgBox "Error in importBOM. Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 
 End Sub
@@ -1101,7 +1103,7 @@ With sht
     End If
 End With
     
-Exit_here:
+exit_here:
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
     Set rs = Nothing
@@ -1114,7 +1116,7 @@ Exit Sub
 err_trap:
 error = True
 MsgBox "Error in importCosting. Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 
 End Sub
@@ -1258,7 +1260,7 @@ With sht
     End If
 End With
 
-Exit_here:
+exit_here:
 closeConnection
 eTime = Now
 If Not error Then MsgBox "Zapis zakończony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
@@ -1267,8 +1269,165 @@ Exit Sub
 err_trap:
 MsgBox "Error in ""importRework"". Error number: " & Err.Number & ", " & Err.Description
 error = True
-Resume Exit_here
+Resume exit_here
 End Sub
+
+Public Sub importDivider()
+Dim sTime As Date
+Dim eTime As Date
+Dim sht As Worksheet
+Dim found As Boolean
+Dim i As Integer
+Dim d As Integer
+Dim n As Integer
+Dim text As String
+Dim dCol As Integer
+Dim iCol As Integer
+Dim fCol As Integer
+Dim bCol As Integer
+Dim tCol As Integer
+Dim aCol As Integer
+Dim oStr() As String
+Dim rStr() As String
+Dim ordersStr As String
+Dim operStr() As String
+Dim counter As Integer
+Dim boundery As Long
+Dim cSql As String
+Dim iSql As String
+Dim uSql As String
+Dim sSql As String
+Dim dSql As String
+Dim theType As String
+Dim realType As String
+Dim s As Long
+Dim sapStr As String
+Dim error As Boolean
+Dim lastRow As Long
+Dim o As clsOrder
+Dim Lplant As String
+Dim prodId As Integer
+Dim amount As Long
+
+On Error GoTo err_trap
+
+sTime = Now
+
+Set sht = ActiveWorkbook.ActiveSheet
+With sht
+    found = False
+    For i = 1 To 30
+        If dCol > 0 And iCol > 0 Then
+            d = i + 1
+            found = True
+            Exit For
+        Else
+            For n = 1 To 30
+                text = .Cells(i, n).Value
+                Select Case text
+                    Case Is = "Remaining to allocate"
+                    dCol = n
+                    Case Is = "Indeks"
+                    iCol = n
+                End Select
+            Next n
+        End If
+    Next i
+    If found = False Then
+        error = True
+        MsgBox "Struktura raportu wydaje się zmieniona. Prawidłowy typ raportu powinien zawierać kolumnę ""Indeks"" i ""Remaining to allocate""", vbOKOnly + vbCritical, "Błędna struktura raportu"
+    Else
+        chooseWeekForm.Show
+        If dividerWeek > 0 And dividerYear > 0 Then
+            updateConnection 90
+            
+            downloadZfins "'zfin'"
+            
+            
+                    '----------------------------------------------------------------------------------------------
+            '--------------- Let's add divider data -------------------------------------
+            counter = 0
+            For s = d To 50000
+                If sht.Cells(s, iCol).Value = "" Then
+                    Exit For
+                ElseIf Len(sht.Cells(s, dCol + 1).Value) > 0 Then
+                    If inCollection(sht.Cells(s, iCol).Value, zfins) Then
+                        'proceed only if zfin exists
+                        prodId = zfins(CStr(sht.Cells(s, iCol))).zfinId
+                        For n = dCol + 2 To 200 Step 2
+                            If sht.Cells(1, n).Value = "" Then
+                                Exit For
+                            Else
+                                Lplant = GetL(sht.Cells(1, n).Value)
+                                If Len(Lplant) > 0 Then
+                                    'proceed only if Lplant has been determined
+                                    amount = sht.Cells(s, n).Value
+                                    If amount > 0 Then
+                                        If counter = 0 Then
+                                            boundery = 0
+                                            ReDim rStr(0) As String
+                                        ElseIf counter Mod 1000 = 0 Then
+                                            'we've hit maximum of 1000 elements per single upload. Let's create another string and put the rest there
+                                            boundery = counter / 1000
+                                            ReDim Preserve rStr(boundery) As String
+                                        End If
+                                        rStr(boundery) = rStr(boundery) & "(" & dividerWeek & "," & dividerYear & "," & "'" & Lplant & "'," & prodId & "," & amount & ",'" & Now & "'),"
+                                        counter = counter + 1
+                                    End If
+                                End If
+                            End If
+                        Next n
+                    End If
+                End If
+            Next s
+            
+            rStr(0) = Left(rStr(0), Len(rStr(0)) - 1)
+            
+            'first delete existing data
+            dSql = "DELETE FROM tbDivider WHERE week = " & dividerWeek & " and Year = " & dividerYear
+            AdoConn.Execute dSql
+    
+            iSql = "INSERT INTO tbDivider (Week, Year, L, ProductId, Amount, CreatedOn) VALUES " & rStr(0)
+            AdoConn.Execute iSql
+        End If
+    End If
+End With
+
+exit_here:
+closeConnection
+eTime = Now
+If Not error Then MsgBox "Zapis zakończony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
+Exit Sub
+
+err_trap:
+MsgBox "Error in ""importRework"". Error number: " & Err.Number & ", " & Err.Description
+error = True
+Resume exit_here
+End Sub
+
+
+Public Function GetL(str As String) As String
+On Error GoTo err_trap
+
+Dim v() As String
+Dim ret As String
+
+ret = ""
+
+v = Split(str, " ", , vbTextCompare)
+If UBound(v) >= 1 Then
+    ret = v(0)
+End If
+
+exit_here:
+GetL = ret
+Exit Function
+
+err_trap:
+Resume exit_here
+
+End Function
+
 
 Public Sub importMb51()
 Dim sTime As Date
@@ -1447,7 +1606,7 @@ With sht
     End If
 End With
 
-Exit_here:
+exit_here:
 closeConnection
 eTime = Now
 If Not error Then MsgBox "Zapis zakończony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
@@ -1456,7 +1615,7 @@ Exit Sub
 err_trap:
 MsgBox "Error in ""importRework"". Error number: " & Err.Number & ", " & Err.Description
 error = True
-Resume Exit_here
+Resume exit_here
 End Sub
 
 
@@ -1733,7 +1892,7 @@ With sht
     End If
 End With
 
-Exit_here:
+exit_here:
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
     Set rs = Nothing
@@ -1747,7 +1906,7 @@ Exit Sub
 err_trap:
 error = True
 MsgBox "Error in ""importComponentUsage"". Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 
 End Sub
@@ -1940,7 +2099,7 @@ With sht
     End If
 End With
 
-Exit_here:
+exit_here:
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
     Set rs = Nothing
@@ -1953,7 +2112,7 @@ Exit Sub
 err_trap:
 error = True
 MsgBox "Error in importComponentScrap. Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 
 End Sub
@@ -2332,7 +2491,7 @@ With sht
     End If
 End With
 
-Exit_here:
+exit_here:
 closeConnection
 eTime = Now
 If Not error Then MsgBox "Zapis zakończony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
@@ -2341,7 +2500,7 @@ Exit Sub
 err_trap:
 MsgBox "Error in ""importConnections"". Error number: " & Err.Number & ", " & Err.Description
 error = True
-Resume Exit_here
+Resume exit_here
 
 End Sub
 
@@ -2518,7 +2677,7 @@ Else
     MsgBox "Struktura raportu wydaje się zmieniona. Prawidłowy typ raportu to raport ""COOIS"" z SAP R/3 w wariancie ""/M024ROB"". Żadne dane nie zostały dodane do bazy.", vbOKOnly + vbCritical, "Błędna struktura raportu"
 End If
 
-Exit_here:
+exit_here:
 closeConnection
 eTime = Now
 If Not error Then MsgBox "Zapis zakończony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
@@ -2526,7 +2685,7 @@ Exit Sub
 
 err_trap:
 MsgBox "Error in ""importBatch2order"". Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Sub
 
@@ -2758,7 +2917,7 @@ Else
     MsgBox "Struktura raportu wydaje się zmieniona. Prawidłowy typ raportu to raport ""Requirements View"" z SAP APO. Żadne dane nie zostały dodane do bazy.", vbOKOnly + vbCritical, "Błędna struktura raportu"
 End If
 
-Exit_here:
+exit_here:
 closeConnection
 eTime = Now
 If Not error Then MsgBox "Zapis zakończony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
@@ -2766,11 +2925,9 @@ Exit Sub
 
 err_trap:
 MsgBox "Error in ""importReqs"". Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Sub
-
-
 
 Public Sub printMachs()
 Dim m As clsMach
@@ -2797,8 +2954,8 @@ Do While zfins.count > 0
 Loop
 
 sSql = "SELECT zfinId, zfinIndex FROM tbZfin WHERE zfinType IN (" & typeStr & ");"
-Set rs = New ADODB.Recordset
-rs.Open sSql, AdoConn, adOpenStatic, adLockBatchOptimistic, adCmdText
+Set rs = CreateObject("adodb.recordset")
+rs.Open sSql, AdoConn
 
 If Not rs.EOF Then
     rs.MoveFirst
@@ -2813,7 +2970,7 @@ If Not rs.EOF Then
     Loop
 End If
 
-Exit_here:
+exit_here:
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
     Set rs = Nothing
@@ -2822,7 +2979,7 @@ Exit Sub
 
 err_trap:
 MsgBox "Error in downloadZfins. Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Sub
 
@@ -2878,7 +3035,7 @@ If Not rs.EOF Then
     Loop
 End If
 
-Exit_here:
+exit_here:
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
     Set rs = Nothing
@@ -2887,7 +3044,7 @@ Exit Sub
 
 err_trap:
 MsgBox "Error in downloadOperations. Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Sub
 
@@ -2935,7 +3092,7 @@ If Not rs.EOF Then
     Loop
 End If
 
-Exit_here:
+exit_here:
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
     Set rs = Nothing
@@ -2944,7 +3101,7 @@ Exit Sub
 
 err_trap:
 MsgBox "Error in downloadOrders. Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Sub
 
@@ -2985,7 +3142,7 @@ If Not rs.EOF Then
     Loop
 End If
 
-Exit_here:
+exit_here:
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
     Set rs = Nothing
@@ -2994,7 +3151,7 @@ Exit Sub
 
 err_trap:
 MsgBox "Error in downloadBatches. Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Sub
 
@@ -3031,7 +3188,7 @@ If Not rs.EOF Then
     Loop
 End If
 
-Exit_here:
+exit_here:
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
     Set rs = Nothing
@@ -3040,7 +3197,7 @@ Exit Sub
 
 err_trap:
 MsgBox "Error in downloadLocations. Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Sub
 
@@ -3079,7 +3236,7 @@ If Not rs.EOF Then
     Loop
 End If
 
-Exit_here:
+exit_here:
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
     Set rs = Nothing
@@ -3088,7 +3245,7 @@ Exit Sub
 
 err_trap:
 MsgBox "Error in downloadQdocs. Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Sub
 
@@ -3123,7 +3280,7 @@ If Not rs.EOF Then
     Loop
 End If
 
-Exit_here:
+exit_here:
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
     Set rs = Nothing
@@ -3132,7 +3289,7 @@ Exit Sub
 
 err_trap:
 MsgBox "Error in downloadMachines. Error number: " & Err.Number & ", " & Err.Description
-Resume Exit_here
+Resume exit_here
 
 End Sub
 
@@ -3240,7 +3397,7 @@ With sht
     End If
 End With
 
-Exit_here:
+exit_here:
 If Not rs Is Nothing Then
     If rs.State = 1 Then rs.Close
     Set rs = Nothing
@@ -3258,7 +3415,7 @@ If Err.Number = 5 Then
     Resume Next
 Else
     MsgBox "Error in updateProperty. Error number: " & Err.Number & ", " & Err.Description
-    Resume Exit_here
+    Resume exit_here
 End If
 
 End Sub
@@ -3536,14 +3693,14 @@ Else
     isError = True
     MsgBox "Struktura raportu wydaje się zmieniona. Prawidłowy typ raportu to raport ""Zestawienie obrotów wg artykułów"" z Qguar. Żadne dane nie zostały dodane do bazy.", vbOKOnly + vbCritical, "Błędna struktura raportu"
 End If
-Exit_here:
+exit_here:
 closeConnection
 Exit Sub
 
 err_trap:
 MsgBox "Error in ""exportPW_WZ"". Error number: " & Err.Number & ", " & Err.Description
 isError = True
-Resume Exit_here
+Resume exit_here
 
 End Sub
 

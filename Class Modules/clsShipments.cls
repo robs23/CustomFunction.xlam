@@ -173,8 +173,8 @@ Next i
 
 
 sSql = "SELECT PlannedShipmentId FROM tbPlannedShipments WHERE PlannedShipmentId IN (" & ids & ");"
-Set rs = New ADODB.Recordset
-rs.Open sSql, AdoConn, adOpenStatic, adLockBatchOptimistic, adCmdText
+Set rs = CreateObject("adodb.recordset")
+rs.Open sSql, AdoConn
 
 If Not rs.EOF Then
     rs.MoveFirst

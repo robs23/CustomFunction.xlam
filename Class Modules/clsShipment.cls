@@ -54,8 +54,8 @@ Dim sSql As String
 updateConnection
 
 sSql = "SELECT * FROM tbPlannedShipments WHERE PlannedShipmentId=" & shipmentId & ";"
-Set rs = New ADODB.Recordset
-rs.Open sSql, AdoConn, adOpenStatic, adLockBatchOptimistic, adCmdText
+Set rs = CreateObject("adodb.recordset")
+rs.Open sSql, AdoConn
 
 If rs.EOF Then
     Exists = False

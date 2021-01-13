@@ -17,6 +17,7 @@ If Not ActiveWorkbook.ReadOnly Then
             Cancel = True
             MsgBox "Nie udalo sie zapisac danych z powodu bledów. Popraw dane i spróbuj jeszcze raz", vbOKOnly, "Lipa"
         End If
+        
     End If
 End If
 
@@ -379,8 +380,8 @@ Do While zfins.count > 0
 Loop
 
 sSql = "SELECT zfinId, zfinIndex FROM tbZfin WHERE zfinType IN (" & typeStr & ");"
-Set rs = New ADODB.Recordset
-rs.Open sSql, AdoConn, adOpenStatic, adLockBatchOptimistic, adCmdText
+Set rs = CreateObject("adodb.recordset")
+rs.Open sSql, AdoConn
 
 If Not rs.EOF Then
     rs.MoveFirst

@@ -1308,6 +1308,8 @@ Dim o As clsOrder
 Dim Lplant As String
 Dim prodId As Integer
 Dim amount As Long
+Dim pMsg As String
+Dim lMsg As String
 
 On Error GoTo err_trap
 
@@ -1374,9 +1376,13 @@ With sht
                                         rStr(boundery) = rStr(boundery) & "(" & dividerWeek & "," & dividerYear & "," & "'" & Lplant & "'," & prodId & "," & amount & ",'" & Now & "'),"
                                         counter = counter + 1
                                     End If
+                                Else
+                                    lMsg = lMsg & sht.Cells(1, n).Value & ", "
                                 End If
                             End If
                         Next n
+                    Else
+                        pMsg = pMsg & sht.Cells(s, iCol).Value & ", "
                     End If
                 End If
             Next s
@@ -1396,11 +1402,21 @@ End With
 exit_here:
 closeConnection
 eTime = Now
-If Not error Then MsgBox "Zapis zakończony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek.", vbOKOnly + vbInformation, "Powodzenie"
+If Not error Then
+    If Len(pMsg) > 0 Then
+        pMsg = Left(pMsg, Len(pMsg) - 2)
+        pMsg = "Produktów: " & pMsg & " nie znaleziono w bazie, należy je najpierw założyć w CMR Managerze."
+    End If
+    If Len(lMsg) > 0 Then
+        lMsg = Left(lMsg, Len(lMsg) - 2)
+        lMsg = "Nie udało się ustalić lokacji dla następuących lokacji: " & lMsg & ". Upewnij się, że lokacje są w formacie <L110 DK>."
+    End If
+    MsgBox "Zapis zakończony powodzeniem w " & Abs(DateDiff("s", sTime, eTime)) & " sek. " + pMsg + lMsg, vbOKOnly + vbInformation, "Powodzenie"
+End If
 Exit Sub
 
 err_trap:
-MsgBox "Error in ""importRework"". Error number: " & Err.Number & ", " & Err.Description
+MsgBox "Error in ""importDivider"". Error number: " & Err.Number & ", " & Err.Description
 error = True
 Resume exit_here
 End Sub

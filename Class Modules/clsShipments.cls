@@ -238,6 +238,7 @@ Dim index As Long
 Dim amount As Double
 Dim poItem As clsPoItem
 Dim isError As Boolean
+Dim zerosCounter As Integer
 
 isError = False
 
@@ -245,6 +246,8 @@ On Error GoTo err_trap
 
 Set Items = New Collection
 Set Removals = New Collection
+
+zerosCounter = 0 'no zeros yet
 
 downloadZfins "'zfin'"
 initialDate = GetInitialDate
@@ -277,7 +280,12 @@ For i = 1 To 100
                     For y = 15 To 114
                         index = sht.Cells(y, 1)
                         If index = 0 Then
-                            Exit For
+                            If zerosCounter >= 8 Then
+                                zerosCounter = 0
+                                Exit For
+                            Else
+                                zerosCounter = zerosCounter + 1
+                            End If
                         Else
                             amount = sht.Cells(y, 11 + i)
                             If amount > 0 Then

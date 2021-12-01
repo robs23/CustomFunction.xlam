@@ -49,7 +49,7 @@ Set sht = ActiveWorkbook.Sheets("Baza danych")
 Set lr = sht.Range("A2:A100").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious, LookIn:=xlValues)
 
 If Not lr Is Nothing Then
-    Set rng = sht.Range("A2:A" & lr.Row)
+    Set rng = sht.Range("A2:A" & lr.row)
     
     Set c = rng.Find(ind, searchorder:=xlByRows, SearchDirection:=xlNext, LookIn:=xlValues)
     If Not c Is Nothing Then

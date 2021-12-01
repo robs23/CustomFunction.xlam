@@ -144,7 +144,7 @@ With sht
         MsgBox "Struktura raportu wydaje się zmieniona. Prawidłowy typ raportu to raport ""Zestawienie ilości wyprodukowanej w zleceniu"" z MES. Żadne dane nie zostały dodane do bazy.", vbOKOnly + vbCritical, "Błędna struktura raportu"
     Else
         updateConnection
-        lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).Row
+        lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).row
         sht.Range(Cells(d, zfinNameCol), Cells(lastRow, zfinNameCol)).Replace "'", "", xlPart, , False
         'continue
         '----------------------------------------------------------------------------------------------
@@ -414,7 +414,7 @@ With sht
         MsgBox "Struktura raportu wydaje się zmieniona. Prawidłowy typ raportu to raport ""Grafik produkcyjny"" z MES. Żadne dane nie zostały dodane do bazy.", vbOKOnly + vbCritical, "Błędna struktura raportu"
     Else
         'we identified all columns needed. Let's crack on
-        lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).Row
+        lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).row
         sht.Range(Cells(d, pnCol), Cells(lastRow, pnCol)).Replace "'", "", xlPart
         sht.Range(Cells(d, zfnCol), Cells(lastRow, zfnCol)).Replace "'", "", xlPart
         firstDate = CDate(Application.WorksheetFunction.Min(sht.Range(Cells(d, dCol), Cells(lastRow, dCol))))
@@ -814,7 +814,7 @@ With sht
         MsgBox "Struktura raportu wydaje się zmieniona. Prawidłowy typ raportu to raport ""Green coffee - BOM overview LR (BOMLR)"" z R/3 SQ01. Żadne dane nie zostały dodane do bazy.", vbOKOnly + vbCritical, "Błędna struktura raportu"
     Else
         'we identified all columns needed. Let's crack on
-        lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).Row
+        lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).row
         sht.Range(Cells(d, nCol), Cells(lastRow, nCol)).Replace "'", "", xlPart
         updateConnection (600)
         counter = 0
@@ -1023,7 +1023,7 @@ With sht
         MsgBox "Struktura raportu wydaje się zmieniona. Prawidłowy typ raportu to raport ""Costing data (ZCOMM_HU)"" z R/3 SQ01 (group MMI). Żadne dane nie zostały dodane do bazy.", vbOKOnly + vbCritical, "Błędna struktura raportu"
     Else
         'we identified all columns needed. Let's crack on
-        lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).Row
+        lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).row
         sht.Range(Cells(d, zfinNCol), Cells(lastRow, zfinNCol)).Replace "'", "", xlPart
         updateConnection (600)
         counter = 0
@@ -1743,7 +1743,7 @@ With sht
         Unload impForm
         wait.Show
         'we identified all columns needed. Let's crack on
-        lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).Row
+        lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).row
         sht.Range(Cells(d, zfinNameCol), Cells(lastRow, zfinNameCol)).Replace "'", "", xlPart
         sht.Range(Cells(d, matNameCol), Cells(lastRow, matNameCol)).Replace "'", "", xlPart
         updateConnection (600)
@@ -2020,7 +2020,7 @@ With sht
         MsgBox "Struktura raportu wydaje się zmieniona. Prawidłowy typ raportu to raport ""MRP View Data (IMPECT_MRP)"" z R/3 SQ01. Żadne dane nie zostały dodane do bazy.", vbOKOnly + vbCritical, "Błędna struktura raportu"
     Else
         'we identified all columns needed. Let's crack on
-        lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).Row
+        lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).row
         sht.Range(Cells(d, nCol), Cells(lastRow, nCol)).Replace "'", "", xlPart
         updateConnection (600)
         counter = 0
@@ -2599,7 +2599,7 @@ Next i
 If found Then
     v() = Split(sht.Cells(1, oCol).Address, "$", , vbTextCompare)
     colLetter = v(1)
-    lastRow = sht.Range(colLetter & ":" & colLetter).Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).Row
+    lastRow = sht.Range(colLetter & ":" & colLetter).Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).row
     sht.Range(Cells(2, nCol), Cells(lastRow, nCol)).Replace "'", "", LookAt:=xlPart
     sht.Range(Cells(2, nCol), Cells(lastRow, nCol)).Replace ".", "", LookAt:=xlPart
     updateConnection
@@ -2783,7 +2783,7 @@ If found Then
     firstRow = i
     v() = Split(sht.Cells(1, pCol).Address, "$", , vbTextCompare)
     colLetter = v(1)
-    lastRow = sht.Range(colLetter & ":" & colLetter).Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).Row
+    lastRow = sht.Range(colLetter & ":" & colLetter).Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).row
     sht.Range(Cells(firstRow, pdCol), Cells(lastRow, pdCol)).Replace "'", "", LookAt:=xlPart
     sht.Range(Cells(firstRow, pdCol), Cells(lastRow, pdCol)).Replace ".", "", LookAt:=xlPart
     updateConnection
@@ -3503,10 +3503,10 @@ isError = False
 '                Exit For
 '            End If
 '        Next s
-lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).Row
+lastRow = sht.Range("A:A").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).row
 Set c3 = sht.Cells.Find("Nr magazynu:", LookIn:=xlValues, LookAt:=xlWhole)
 If Not c3 Is Nothing Then
-    sht.Range(Cells(c3.Row, c3.Column), Cells(lastRow, c3.Column)).Replace "'", "", LookAt:=xlPart
+    sht.Range(Cells(c3.row, c3.Column), Cells(lastRow, c3.Column)).Replace "'", "", LookAt:=xlPart
     Set c = sht.Cells.Find("Nr artykułu:", LookIn:=xlValues, LookAt:=xlWhole)
     If Not c Is Nothing Then
         firstAddress = c.Address
@@ -3555,10 +3555,10 @@ If Not c3 Is Nothing Then
         Set c1 = sht.Cells.Find("Nr artykułu:", LookIn:=xlValues, LookAt:=xlWhole)
         If Not c1 Is Nothing Then
             firstAddress1 = c1.Address
-            theFirstOne = c1.Row
+            theFirstOne = c1.row
             Do
                 If eRow > 0 Then
-                    For Each c In sht.Range("G" & eRow & ":G" & c1.Row)
+                    For Each c In sht.Range("G" & eRow & ":G" & c1.row)
                         If c.Offset(0, -4) = "Typ dokumentu:" Then
                             currType = c.Offset(0, -3)
                         End If
@@ -3597,10 +3597,10 @@ If Not c3 Is Nothing Then
                         End If
                     Next c
                 End If
-                eRow = c1.Row
+                eRow = c1.row
                 Set c1 = sht.Cells.FindNext(c1)
             Loop While Not c1 Is Nothing And c1.Address <> firstAddress1
-            theLastOne = sht.Range("E:E").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).Row
+            theLastOne = sht.Range("E:E").Find("*", searchorder:=xlByRows, SearchDirection:=xlPrevious).row
             For Each c In sht.Range("G" & eRow & ":G" & theLastOne)
                 If c.Offset(0, -4) = "Typ dokumentu:" Then
                     currType = c.Offset(0, -3)
@@ -3660,10 +3660,10 @@ If Not c3 Is Nothing Then
         If Not c Is Nothing Then
             firstAddress = c.Address
             Do
-                If c.Row > prevRow + 1 Then
+                If c.row > prevRow + 1 Then
                     'document changed. Check if it's PW or WZ or other
                     Set c4 = c.Offset(0, -3)
-                    Do While c3.Row > prevRow
+                    Do While c3.row > prevRow
                         If c4.Offset(0, -1).Value = "Typ dokumentu:" Then
                             theType = Mid(c4.Value, 5, 2)
                             Exit Do

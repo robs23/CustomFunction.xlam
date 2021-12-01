@@ -198,3 +198,58 @@ End Function
 Public Function IsoWeekNumber(InDate As Date) As Long
     IsoWeekNumber = DatePart("ww", InDate, vbMonday, vbFirstFourDays)
 End Function
+
+Public Sub HideEmptyColumns(Optional row As Variant)
+
+On Error GoTo err_trap
+
+Dim i As Integer
+Dim lngLastColumn As Long
+' Get last cell
+lngLastColumn = ActiveSheet.Cells.SpecialCells(xlCellTypeLastCell).Column
+
+Application.ScreenUpdating = False
+For i = 1 To lngLastColumn
+    If Application.WorksheetFunction.CountA(Columns(i)) = 0 And IsMissing(row) Then
+        Columns(i).Hidden = True
+    ElseIf Not IsMissing(row) And row > 0 Then
+        If ActiveSheet.Cells(row, i) = "" Or ActiveSheet.Cells(row, i) = 0 Then
+            Columns(i).Hidden = True
+        End If
+    End If
+Next i
+
+exit_here:
+Application.ScreenUpdating = True
+Exit Sub
+
+err_trap:
+MsgBox "Błąd. Szczegóły: " & Err.Description, vbCritical + vbOKOnly, "Błąd"
+Resume exit_here
+
+End Sub
+
+Public Sub ShowAllColumns()
+On Error GoTo err_trap
+
+Dim i As Integer
+Dim lngLastColumn As Long
+' Get last cell
+lngLastColumn = ActiveSheet.Cells.SpecialCells(xlCellTypeLastCell).Column
+
+Application.ScreenUpdating = False
+For i = 1 To lngLastColumn
+    If Columns(i).Hidden Then
+        Columns(i).Hidden = False
+    End If
+Next i
+
+exit_here:
+Application.ScreenUpdating = True
+Exit Sub
+
+err_trap:
+MsgBox "Błąd. Szczegóły: " & Err.Description, vbCritical + vbOKOnly, "Błąd"
+Resume exit_here
+
+End Sub
